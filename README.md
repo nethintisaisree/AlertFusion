@@ -1,4 +1,4 @@
-# Intelligent Emergency Alert Prioritization System
+# ALERTFUSION - Intelligent Emergency Alert Prioritization System
 
 A final year project for Bachelor of Computer Applications.
 
