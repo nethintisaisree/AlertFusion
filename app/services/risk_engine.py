@@ -34,7 +34,7 @@ MODERATE_KEYWORDS = {
     "threat", "attack", "emergency", "help",
     "danger", "robbery", "theft", "break in",
     "intruder", "burglar", "trespass", "forced entry",
-    "hurt", "pain", "trapped", "stuck"
+    "hurt", "pain", "trapped", "stuck","thief"
 }
 
 LOW_KEYWORDS = {
