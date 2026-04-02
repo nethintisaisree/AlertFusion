@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Ethics &amp; Responsible AI Governance Framework</h1>
+    <p>
+        Ethical design principles and accountability mechanisms embedded within
+        AlertFusion.
+    </p>
+</div>
+
+<!-- ================= OVERVIEW BANNER ================= -->
+
+<div class="card">
+    <div class="info-box">
+        This system is designed around the principle that <strong>no user should be 
+        permanently denied access to emergency services</strong> due to automated 
+        decisions. All AI, ML, and rule-based decisions are logged, explainable, 
+        and subject to human review.
+    </div>
+</div>
+
+<!-- ================= PRINCIPLE 1 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#128100; 1. Human-Centric Decision Architecture</div>
+    <p>
+        The system does not automatically escalate every alert. High-risk cases
+        trigger immediate escalation, while moderate or uncertain cases are
+        classified as <strong>Conditional Escalation</strong> or
+        <strong>Review Required</strong>. Final authority always remains with
+        human responders in ambiguous situations — the AI assists, it does not replace.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 2 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#128737;&#65039; 2. Soft Prevention Strategy</div>
+    <p>
+        Users are <strong>never permanently blocked</strong> based on isolated
+        suspicious behavior. Instead, trust scores are dynamically adjusted and
+        monitored over time. This prevents wrongful denial of emergency access
+        while maintaining system integrity. A user who previously misused the system
+        can still report a genuine emergency — the system will flag it for review
+        rather than silently reject it.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 3 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#9878;&#65039; 3. Dynamic Trust &amp; Fairness Model</div>
+    <p>
+        Reporter trust evolves based on historical behavior. False alerts gradually
+        reduce trust scores, while legitimate reports preserve or improve credibility.
+        This ensures fairness without permanent penalties. Trust penalties are
+        proportional — a single suspicious report does not severely impact a user's
+        standing.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 4 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#128221; 4. Explainability &amp; Transparency</div>
+    <p>
+        Every decision produced by the system includes a structured breakdown of
+        the factors that led to it. No decision is a black box.
+    </p>
+
+    <table style="margin-top:12px;">
+        <tr>
+            <th>Factor</th>
+            <th>What It Measures</th>
+        </tr>
+        <tr>
+            <td><strong>Priority Score</strong></td>
+            <td>Urgency of emergency type and keywords in message</td>
+        </tr>
+        <tr>
+            <td><strong>Credibility Score</strong></td>
+            <td>Completeness of user identity and message quality</td>
+        </tr>
+        <tr>
+            <td><strong>Trust Score</strong></td>
+            <td>Reporter's historical behaviour and misuse history</td>
+        </tr>
+        <tr>
+            <td><strong>Risk Score</strong></td>
+            <td>AI semantic analysis + keyword severity estimation</td>
+        </tr>
+        <tr>
+            <td><strong>ML Classification</strong></td>
+            <td>Trained model prediction with confidence level</td>
+        </tr>
+        <tr>
+            <td><strong>ECS</strong></td>
+            <td>Combined probability of genuine emergency (0–1 scale)</td>
+        </tr>
+    </table>
+
+    <p style="margin-top:16px;">
+        Audit logs maintain permanent traceability of all computations for
+        administrative review and post-incident analysis.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 5 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#128274; 5. Data Privacy &amp; Minimal Collection</div>
+    <p>
+        Only essential data fields are stored:
+    </p>
+    <ul style="margin-top:8px; padding-left:20px; line-height:2;">
+        <li>User name and contact number</li>
+        <li>Incident location</li>
+        <li>Emergency description</li>
+        <li>System-computed scores and decision</li>
+    </ul>
+    <p>
+        Data is retained solely for audit, system monitoring, and emergency handling
+        purposes. No external sharing occurs without authorized administrative access.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 6 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#9878;&#65039; 6. Bias Mitigation Strategy</div>
+    <p>
+        The system avoids demographic profiling. Decisions are derived from structured
+        risk indicators, message content patterns, and behavioral consistency —
+        not from personal attributes such as name, gender, or location demographics.
+    </p>
+    <p style="margin-top:10px;">
+        The ML model is trained on message content and emergency type only. The
+        training dataset is reviewed for class balance to prevent the model from
+        over-predicting majority classes. Underrepresented categories receive
+        additional training samples to reduce prediction bias.
+    </p>
+</div>
+
+<!-- ================= PRINCIPLE 7 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#129302; 7. Responsible ML &amp; AI Use</div>
+    <p>
+        The system uses two AI layers — a trained ML classifier and a semantic AI
+        engine — to support decision making. Both layers are:
+    </p>
+    <ul style="margin-top:8px; padding-left:20px; line-height:2;">
+        <li>Used as <strong>supporting evidence</strong>, not sole decision makers</li>
+        <li>Subject to override by rule-based logic for critical life-safety scenarios</li>
+        <li>Logged with their confidence scores for transparency</li>
+        <li>Fallback-safe — if either layer fails, the system continues via rule-based logic</li>
+    </ul>
+</div>
+
+<!-- ================= PRINCIPLE 8 ================= -->
+
+<div class="card">
+    <div class="section-heading">&#128203; 8. Limitations &amp; Future Enhancements</div>
+    <p>
+        Current implementation prioritizes transparency, explainability, and
+        auditability. Acknowledged limitations and planned improvements:
+    </p>
+
+    <table style="margin-top:12px;">
+        <tr>
+            <th>Limitation</th>
+            <th>Planned Enhancement</th>
+        </tr>
+        <tr>
+            <td>No temporal misuse pattern detection</td>
+            <td>Time-window analysis for repeated suspicious reports</td>
+        </tr>
+        <tr>
+            <td>No role-based admin access control</td>
+            <td>Login system with admin authentication</td>
+        </tr>
+        <tr>
+            <td>Plain-text data storage</td>
+            <td>Encrypted storage for sensitive user data</td>
+        </tr>
+        <tr>
+            <td>Small training dataset</td>
+            <td>Expanded real-world emergency message corpus</td>
+        </tr>
+        <tr>
+            <td>No multilingual support</td>
+            <td>Regional language emergency detection</td>
+        </tr>
+    </table>
+</div>
+
+{% endblock %}

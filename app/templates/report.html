@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Emergency Incident Reporting</h1>
+    <p>
+        Submit emergency details for automated credibility assessment and escalation analysis.
+    </p>
+</div>
+
+<div class="card">
+
+    <div class="section-heading">Reporter Information</div>
+
+    <form method="POST" action="/report" id="reportForm">
+
+        <label for="user_name">Full Name</label>
+        <input type="text"
+               id="user_name"
+               name="user_name"
+               required
+               minlength="3"
+               maxlength="100"
+               placeholder="Enter your full name"
+               autocomplete="name">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel"
+               id="phone"
+               name="phone"
+               required
+               minlength="10"
+               maxlength="15"
+               pattern="[0-9+\-\s]{10,15}"
+               placeholder="Enter contact number (digits only)"
+               autocomplete="tel">
+        <small style="color:#5c6b7a; margin-top:-14px; margin-bottom:14px; display:block;">
+            Enter a valid 10-digit phone number. This is used for trust tracking.
+        </small>
+
+        <div class="section-heading" style="margin-top:10px;">Incident Details</div>
+
+        <label for="location">Incident Location</label>
+        <input type="text"
+               id="location"
+               name="location"
+               required
+               minlength="3"
+               maxlength="100"
+               placeholder="e.g. Block C, Hyderabad / Near City Hospital"
+               autocomplete="off">
+
+        <label for="emergency_type">Emergency Type</label>
+        <select id="emergency_type"
+                name="emergency_type"
+                required>
+            <option value="">-- Select Emergency Type --</option>
+            <option value="medical"> Medical</option>
+            <option value="fire"> Fire</option>
+            <option value="crime"> Crime</option>
+            <option value="accident"> Accident</option>
+            <option value="other"> Other</option>
+        </select>
+
+        <label for="message">
+            Emergency Description
+            <span id="charCount" style="font-weight:400; color:#5c6b7a; font-size:12px; margin-left:8px;">
+                0 / 500
+            </span>
+        </label>
+        <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            minlength="10"
+            maxlength="500"
+            placeholder="Describe the emergency situation clearly. Include what is happening, who is involved, and any immediate dangers..."
+        ></textarea>
+        <small style="color:#5c6b7a; margin-top:-14px; margin-bottom:14px; display:block;">
+            A detailed description improves credibility scoring and response accuracy.
+        </small>
+
+        <!-- SECURITY FIX: misuse_count removed from form — now fetched from DB in routes.py -->
+        <input type="hidden" name="source" value="web">
+
+        <button type="submit" id="submitBtn" style="margin-top:10px;">
+            &#128276; Submit Emergency Alert
+        </button>
+
+        <!-- Loading state (hidden by default) -->
+        <div id="loadingMsg" style="display:none; margin-top:16px; text-align:center; color:#5c6b7a; font-size:14px;">
+            &#9203; Analyzing report... please wait
+        </div>
+
+    </form>
+
+</div>
+
+<!-- ================= SYSTEM OVERVIEW ================= -->
+
+<div class="card">
+
+    <div class="section-heading">How Your Report Is Evaluated</div>
+
+    <div class="info-box" style="margin-bottom:20px;">
+        Submitted reports are processed through a multi-layer AI + ML + Rule-based 
+        hybrid pipeline. The system evaluates priority, credibility, trust history, 
+        and semantic risk to determine the appropriate escalation level.
+    </div>
+
+    <table>
+        <tr>
+            <th>Decision Level</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
+            <td>Critical emergency detected — immediate response required</td>
+        </tr>
+        <tr>
+            <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
+            <td>Potential danger — escalation with verification</td>
+        </tr>
+        <tr>
+            <td><span class="badge medium">REVIEW REQUIRED</span></td>
+            <td>Uncertain situation — requires human review</td>
+        </tr>
+        <tr>
+            <td><span class="badge low">LOG &amp; MONITOR</span></td>
+            <td>Low-risk scenario — logged for monitoring</td>
+        </tr>
+        <tr>
+            <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
+            <td>Suspicious behavior detected — flagged, not blocked</td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    // Character counter for message field
+    var msgField = document.getElementById('message');
+    var charCount = document.getElementById('charCount');
+
+    if (msgField && charCount) {
+        msgField.addEventListener('input', function () {
+            charCount.textContent = msgField.value.length + ' / 500';
+        });
+    }
+
+    // Loading state on submit
+    var form = document.getElementById('reportForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var loadingMsg = document.getElementById('loadingMsg');
+
+    if (form) {
+        form.addEventListener('submit', function () {
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+            }
+            if (loadingMsg) {
+                loadingMsg.style.display = 'block';
+            }
+        });
+    }
+</script>
+
+{% endblock %}

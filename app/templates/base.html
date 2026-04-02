@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlertFusion</title>
+
+<style>
+
+/* =====================================================
+   GLOBAL SYSTEM DESIGN
+===================================================== */
+
+:root {
+    --primary: #162433;
+    --secondary: #1f2d3d;
+    --background: #eef2f7;
+    --card-bg: #ffffff;
+    --text-dark: #1b2a3a;
+    --text-light: #5c6b7a;
+    --border: #dbe3ec;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--background);
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    background-color: var(--primary);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links a {
+    color: #dce6f0;
+    margin-left: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+/* Active nav link — set via Jinja in each template */
+.nav-links a.active {
+    color: #ffffff;
+    border-bottom: 2px solid #4fc3f7;
+}
+
+/* =====================================================
+   LAYOUT CONTAINER
+===================================================== */
+
+.container {
+    padding: 50px 30px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.page-header p {
+    margin-top: 8px;
+    color: var(--text-light);
+}
+
+/* =====================================================
+   CARD SYSTEM
+===================================================== */
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    margin-top: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.section-heading {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+button {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary);
+}
+
+button:focus {
+    outline: 3px solid #4fc3f7;
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    margin-bottom: 18px;
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(31, 45, 61, 0.1);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.high        { background-color: #e74c3c; color: white; }
+.conditional { background-color: #f39c12; color: white; }
+.medium      { background-color: #f1c40f; color: black; }
+.low         { background-color: #2ecc71; color: white; }
+.misuse      { background-color: #6c757d; color: white; }
+
+.ecs-score { font-size: 42px; font-weight: 700; margin-top: 10px; }
+.ecs-high   { color: #e74c3c; }
+.ecs-medium { color: #f39c12; }
+.ecs-low    { color: #2ecc71; }
+
+/* =====================================================
+   SCORE LABEL ROW  ← THIS WAS MISSING (BUG FIX)
+===================================================== */
+
+.score-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.score-label span:last-child {
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* =====================================================
+   PROGRESS BAR  (color-coded by score level)
+===================================================== */
+
+.progress-bar {
+    background: #e6ecf2;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--secondary);
+    transition: width 0.6s ease;
+    border-radius: 6px;
+}
+
+/* Color variants applied via JS based on value */
+.progress-fill.fill-high     { background: #e74c3c; }
+.progress-fill.fill-medium   { background: #f39c12; }
+.progress-fill.fill-low      { background: #2ecc71; }
+
+/* =====================================================
+   TABLE (FOR ADMIN PAGES)
+===================================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f7fa;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f1f5f9;
+    transition: background-color 0.2s ease;
+}
+
+/* =====================================================
+   INFO BOXES
+===================================================== */
+
+.info-box {
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+    line-height: 1.7;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    margin-top: 60px;
+    padding: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+}
+
+/* =====================================================
+   RESPONSIVE — BASIC MOBILE SUPPORT
+===================================================== */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+
+    .nav-links a {
+        margin-left: 12px;
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 30px 16px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px 10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="brand">
+
+        <!-- AlertFusion Logo — Shield + Pulse Line -->
+        <svg width="38" height="38" viewBox="0 0 36 36"
+             fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Shield -->
+            <path d="M18 2 L32 7 L32 18 C32 26 18 34 18 34 C18 34 4 26 4 18 L4 7 Z"
+                  fill="#1f2d3d" stroke="#4fc3f7" stroke-width="1.5"/>
+            <!-- Pulse / EKG line inside shield -->
+            <polyline points="7,18 11,18 13,12 15,24 17,16 19,20 21,18 29,18"
+                      stroke="#4fc3f7" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      fill="none"/>
+        </svg>
+
+        <div>
+            <div style="font-size:20px; font-weight:700; letter-spacing:0.5px; line-height:1.2;">
+                AlertFusion
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/report">Report</a>
+        <a href="/ethics">Ethics</a>
+
+        {% if session.get("admin_logged_in") %}
+            <a href="/admin/alerts">Dashboard</a>
+            <a href="/admin/audit">Audit</a>
+            <a href="/admin/logout"
+               style="background-color:#e74c3c; color:white; padding:6px 14px;
+                      border-radius:6px; margin-left:10px; font-size:13px;">
+                &#128275; Logout
+            </a>
+        {% else %}
+            <a href="/admin/login"
+               style="background-color:#1f2d3d; color:#4fc3f7; padding:6px 14px;
+                      border-radius:6px; border:1px solid #4fc3f7;
+                      margin-left:10px; font-size:13px;">
+                &#128274; Admin Login
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div class="footer">
+    Final Year Project &bull; Bachelor of Computer Applications &bull; AlertFusion
+</div>
+
+<!-- =====================================================
+     PROGRESS BAR COLOR SCRIPT
+     Runs on every page that has progress bars
+===================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Score label progress bars — color coded by value
+    document.querySelectorAll('.progress-fill[data-width]').forEach(function (el) {
+        var w = parseInt(el.getAttribute('data-width'), 10) || 0;
+        el.style.width = w + '%';
+
+        if (w >= 70) {
+            el.classList.add('fill-high');
+        } else if (w >= 40) {
+            el.classList.add('fill-medium');
+        } else {
+            el.classList.add('fill-low');
+        }
+    });
+
+    // Active nav link highlight
+    var current = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href === current || (href !== '/' && current.startsWith(href))) {
+            link.classList.add('active');
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>System Audit &amp; Decision Logs</h1>
+    <p>
+        Complete traceability record of emergency scoring, confidence evaluation,
+        and escalation decisions for transparency and accountability.
+    </p>
+</div>
+
+<div class="card">
+
+    <div class="section-heading">Decision Audit Records</div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <p style="margin:0;">
+            <strong>Total Audit Records:</strong> {{ audit_logs|length }}
+        </p>
+
+        <!-- Search filter -->
+        <input type="text"
+               id="auditSearch"
+               placeholder="&#128269; Search by user, decision or phone..."
+               style="width:320px; margin-bottom:0; padding:8px 12px; font-size:13px;">
+    </div>
+
+    {% if audit_logs %}
+
+    <div style="overflow-x: auto;">
+    <table id="auditTable">
+        <tr>
+            <th>Audit ID</th>
+            <th>Alert ID</th>
+            <th>User</th>
+            <th>Phone</th>
+            <th>Priority</th>
+            <th>Credibility</th>
+            <th>Trust</th>
+            <th>Risk</th>
+            <th>Confidence</th>
+            <th>Decision</th>
+            <th>Explanation</th>
+            <th>Timestamp</th>
+        </tr>
+
+        {% for log in audit_logs %}
+
+        {% if log.final_decision == 'IMMEDIATE_ESCALATION' %}
+            {% set decision_class = 'high' %}
+        {% elif log.final_decision == 'CONDITIONAL_ESCALATION' %}
+            {% set decision_class = 'conditional' %}
+        {% elif log.final_decision == 'REVIEW_REQUIRED' %}
+            {% set decision_class = 'medium' %}
+        {% elif log.final_decision == 'LOG_AND_MONITOR' %}
+            {% set decision_class = 'low' %}
+        {% else %}
+            {% set decision_class = 'misuse' %}
+        {% endif %}
+
+        <tr>
+            <td>{{ log.audit_id }}</td>
+            <td>{{ log.alert_id }}</td>
+            <td>{{ log.user_name or '—' }}</td>
+            <td>{{ log.phone or '—' }}</td>
+            <td>{{ log.priority_score }}</td>
+            <td>{{ log.credibility_score }}</td>
+            <td>{{ log.trust_score }}</td>
+            <td>{{ log.risk_score }}</td>
+
+            <!-- Confidence: shows — if NULL (bug fix) -->
+            <td>
+                {% if log.confidence_score is not none %}
+                    <strong>{{ log.confidence_score }}%</strong>
+                {% else %}
+                    <span style="color:#aaa;">—</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <span class="badge {{ decision_class }}">
+                    {{ log.final_decision.replace("_", " ") }}
+                </span>
+            </td>
+
+            <!-- Explanation preview with hover for full text -->
+            <td style="max-width:180px; white-space:nowrap; overflow:hidden;
+                       text-overflow:ellipsis; font-size:12px; color:#5c6b7a;"
+                title="{{ log.explanation }}">
+                {{ log.explanation or '—' }}
+            </td>
+
+            <td style="white-space:nowrap;">{{ log.formatted_time }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+    </div>
+
+    {% else %}
+
+    <div class="info-box">
+        No audit records available. System has not processed any alerts yet.
+    </div>
+
+    {% endif %}
+
+</div>
+
+<!-- ================= AUDIT PURPOSE ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Audit Purpose</div>
+
+    <div class="info-box">
+        The audit module maintains a historical record of all computed scoring
+        components including priority, credibility, trust, risk, and final
+        escalation outcome. This ensures:
+    </div>
+
+    <table style="margin-top:16px;">
+        <tr>
+            <th>Principle</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>&#128202; Decision Traceability</td>
+            <td>Every decision is logged with full score breakdown</td>
+        </tr>
+        <tr>
+            <td>&#128269; Scoring Transparency</td>
+            <td>Priority, credibility, trust and risk values are permanently recorded</td>
+        </tr>
+        <tr>
+            <td>&#9888;&#65039; Misuse Pattern Identification</td>
+            <td>Repeated suspicious behaviour can be identified across audit records</td>
+        </tr>
+        <tr>
+            <td>&#128203; Post-Incident Review</td>
+            <td>Decisions can be reviewed and challenged after the fact</td>
+        </tr>
+        <tr>
+            <td>&#127891; Academic Accountability</td>
+            <td>Demonstrates system fairness and explainability for evaluation purposes</td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    // Live search filter for audit table
+    var searchInput = document.getElementById('auditSearch');
+    var table = document.getElementById('auditTable');
+
+    if (searchInput && table) {
+        searchInput.addEventListener('input', function () {
+            var query = searchInput.value.toLowerCase();
+            var rows = table.querySelectorAll('tr');
+
+            rows.forEach(function (row, index) {
+                if (index === 0) return; // skip header
+                var text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    }
+</script>
+
+{% endblock %}

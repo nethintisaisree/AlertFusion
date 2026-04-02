@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.confirmation-banner {
+    background-color: #eafaf1;
+    border-left: 5px solid #2ecc71;
+    color: #1e8449;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.ecs-hero-number {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+    text-align: center;
+}
+
+.ecs-hero-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #5c6b7a;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.ecs-verdict {
+    margin-top: 10px;
+    color: #5c6b7a;
+    font-size: 13px;
+    text-align: center;
+}
+</style>
+
+<!-- ================= CONFIRMATION BANNER ================= -->
+
+<div class="confirmation-banner">
+    &#10003; Your emergency report has been received and processed successfully.
+</div>
+
+<div class="page-header" style="margin-top:20px;">
+    <h1>Emergency Analysis Report</h1>
+    <p>AI-powered multi-layer emergency evaluation system output.</p>
+</div>
+
+<!-- ================= ECS — PROMINENT (shown first) ================= -->
+
+<div class="card" style="text-align:center;">
+
+    <div class="section-heading">Emergency Credibility Score (ECS)</div>
+
+    {% if ecs >= 0.7 %}
+        {% set ecs_class = "ecs-high" %}
+        {% set ecs_verdict = "High probability of genuine emergency" %}
+    {% elif ecs >= 0.4 %}
+        {% set ecs_class = "ecs-medium" %}
+        {% set ecs_verdict = "Moderate probability — verification recommended" %}
+    {% else %}
+        {% set ecs_class = "ecs-low" %}
+        {% set ecs_verdict = "Low emergency probability detected" %}
+    {% endif %}
+
+    <span class="ecs-score ecs-hero-number {{ ecs_class }}">
+        {{ (ecs * 100) | round(1) }}%
+    </span>
+
+    <div class="ecs-hero-label">Emergency Credibility Score</div>
+
+    <p class="ecs-verdict">{{ ecs_verdict }}</p>
+
+    <div style="margin-top:15px;">
+        <div class="progress-bar">
+            <div class="progress-fill" data-width="{{ (ecs * 100) | round(1) }}"></div>
+        </div>
+    </div>
+
+    <p style="margin-top:10px; color:#5c6b7a; font-size:12px; font-style:italic;">
+        Derived from credibility score, trust history, and contextual risk analysis.
+    </p>
+
+</div>
+
+<!-- ================= FINAL DECISION ================= -->
+
+<div class="card" style="text-align:center;">
+
+    <div class="section-heading">Final Escalation Decision</div>
+
+    {% set decision_class = (
+        'high'        if decision == 'IMMEDIATE_ESCALATION'   else
+        'conditional' if decision == 'CONDITIONAL_ESCALATION' else
+        'medium'      if decision == 'REVIEW_REQUIRED'        else
+        'low'         if decision == 'LOG_AND_MONITOR'        else
+        'misuse'
+    ) %}
+
+    <div style="margin-top:20px;">
+        <span class="badge {{ decision_class }}" style="font-size:22px; padding:12px 30px;">
+            {{ decision.replace("_", " ") }}
+        </span>
+    </div>
+
+    <div style="margin-top:15px; color:#5c6b7a; font-size:13px;">
+        Final decision derived from AI + ML + Rule-based hybrid system
+    </div>
+
+    <!-- DECISION CONFIDENCE -->
+    <div style="margin-top:25px; text-align:left;">
+        <div class="score-label">
+            <span>Final Decision Confidence</span>
+            <span>{{ score }}%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" data-width="{{ score }}"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= ML TRANSPARENCY ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Machine Learning Insight</div>
+
+    <div class="info-box">
+        {% if ml_label and ml_label != 'UNKNOWN' %}
+            <strong>ML Predicted Class:</strong>
+            {{ ml_label.replace("_", " ") }} <br>
+            <strong>ML Confidence:</strong>
+            {{ (ml_conf * 100) | round(1) }}%
+        {% else %}
+            <strong>ML Result:</strong>
+            Could not determine a confident ML classification for this message.
+            Decision was derived from rule-based and AI scoring layers.
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- ================= SCORE ANALYSIS ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Multi-Factor Score Breakdown</div>
+
+    <div style="margin-top:20px;">
+
+        <!-- Priority -->
+        <div style="margin-bottom:20px;">
+            <div class="score-label">
+                <span>Priority Assessment</span>
+                <span>{{ priority }}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-width="{{ priority }}"></div>
+            </div>
+        </div>
+
+        <!-- Credibility -->
+        <div style="margin-bottom:20px;">
+            <div class="score-label">
+                <span>Credibility Analysis</span>
+                <span>{{ credibility }}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-width="{{ credibility }}"></div>
+            </div>
+        </div>
+
+        <!-- Trust -->
+        <div style="margin-bottom:20px;">
+            <div class="score-label">
+                <span>
+                    Reporter Trust Evaluation
+                    {% if trust_level %}
+                        {% if trust_level == 'HIGH' %}
+                            {% set trust_badge = "low" %}
+                        {% elif trust_level == 'GOOD' %}
+                            {% set trust_badge = "low" %}
+                        {% elif trust_level == 'MODERATE' %}
+                            {% set trust_badge = "medium" %}
+                        {% else %}
+                            {% set trust_badge = "high" %}
+                        {% endif %}
+                        <span class="badge {{ trust_badge }}"
+                              style="font-size:11px; padding:3px 10px; margin-left:8px;">
+                            {{ trust_level }}
+                        </span>
+                    {% endif %}
+                </span>
+                <span>{{ trust }}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-width="{{ trust }}"></div>
+            </div>
+        </div>
+
+        <!-- Risk -->
+        <div>
+            <div class="score-label">
+                <span>Risk Severity Estimation</span>
+                <span>{{ risk }}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-width="{{ risk }}"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= EXPLANATION ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Decision Rationale</div>
+
+    <div class="info-box" style="white-space:pre-wrap; font-size:14px; line-height:1.8;">
+        {{ explanation }}
+    </div>
+
+</div>
+
+<!-- ================= ACTIONS ================= -->
+
+<div class="card" style="text-align:center;">
+
+    <a href="/report">
+        <button style="margin-top:8px;">
+            &#8592; Submit Another Report
+        </button>
+    </a>
+
+    {% if session.get("admin_logged_in") %}
+    <a href="/admin/alerts" style="margin-left:16px;">
+        <button style="background-color:#2ecc71; margin-top:8px;">
+            View Admin Dashboard
+        </button>
+    </a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

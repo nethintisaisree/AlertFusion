@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.login-wrapper {
+    max-width: 420px;
+    margin: 60px auto;
+}
+
+.login-subtitle {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.login-subtitle p {
+    color: #5c6b7a;
+    font-size: 13px;
+    margin: 0;
+}
+
+.flash-msg {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.flash-error {
+    background-color: #fdecea;
+    color: #c0392b;
+    border-left: 4px solid #e74c3c;
+}
+
+.flash-warning {
+    background-color: #fff8e1;
+    color: #856404;
+    border-left: 4px solid #f39c12;
+}
+
+.login-submit {
+    margin-top: 8px;
+    width: 100%;
+    padding: 12px;
+}
+
+.login-back {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #5c6b7a;
+}
+
+.login-back a {
+    color: #1f2d3d;
+    text-decoration: none;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #8ab4cc;
+}
+</style>
+
+<div class="login-wrapper">
+
+    <div class="card">
+
+        <div class="login-subtitle">
+            <div class="login-icon">&#128274;</div>
+            <div class="section-heading" style="margin-bottom:4px;">Admin Access</div>
+            <p>This area is restricted to system administrators only.</p>
+        </div>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        <div class="flash-msg flash-error">{{ message }}</div>
+                    {% else %}
+                        <div class="flash-msg flash-warning">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Login form -->
+        <form method="POST" action="/admin/login" id="loginForm">
+
+            <label for="username">Username</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   required
+                   autocomplete="username"
+                   placeholder="Enter admin username">
+
+            <label for="password">Password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   required
+                   autocomplete="current-password"
+                   placeholder="Enter admin password">
+
+            <button type="submit" class="login-submit">
+                &#128275; Log In to Admin Panel
+            </button>
+
+        </form>
+
+        <div class="login-back">
+            <a href="/">&#8592; Back to Report Form</a>
+        </div>
+
+    </div>
+
+    <div class="login-footer">
+        AlertFusion — Secure Admin Area
+    </div>
+
+</div>
+
+{% endblock %}

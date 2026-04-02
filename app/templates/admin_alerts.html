@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Administrative Alerts Dashboard</h1>
+    <p>
+        Monitoring and statistical overview of all processed emergency reports.
+    </p>
+</div>
+
+<!-- ================= DECISION STATISTICS ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Escalation Decision Statistics</div>
+
+    {% set total = (
+        stats.IMMEDIATE_ESCALATION +
+        stats.CONDITIONAL_ESCALATION +
+        stats.REVIEW_REQUIRED +
+        stats.LOG_AND_MONITOR +
+        stats.SUSPECTED_MISUSE
+    ) %}
+
+    <p style="color:#5c6b7a; font-size:13px; margin-top:-10px; margin-bottom:16px;">
+        Total alerts processed: <strong>{{ total }}</strong>
+    </p>
+
+    <table>
+        <tr>
+            <th>Decision Type</th>
+            <th>Count</th>
+            <th>Share</th>
+        </tr>
+
+        <tr>
+            <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
+            <td><strong>{{ stats.IMMEDIATE_ESCALATION }}</strong></td>
+            <td>
+                {% if total > 0 %}
+                    {{ ((stats.IMMEDIATE_ESCALATION / total) * 100) | round(1) }}%
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
+            <td><strong>{{ stats.CONDITIONAL_ESCALATION }}</strong></td>
+            <td>
+                {% if total > 0 %}
+                    {{ ((stats.CONDITIONAL_ESCALATION / total) * 100) | round(1) }}%
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="badge medium">REVIEW REQUIRED</span></td>
+            <td><strong>{{ stats.REVIEW_REQUIRED }}</strong></td>
+            <td>
+                {% if total > 0 %}
+                    {{ ((stats.REVIEW_REQUIRED / total) * 100) | round(1) }}%
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="badge low">LOG &amp; MONITOR</span></td>
+            <td><strong>{{ stats.LOG_AND_MONITOR }}</strong></td>
+            <td>
+                {% if total > 0 %}
+                    {{ ((stats.LOG_AND_MONITOR / total) * 100) | round(1) }}%
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
+            <td><strong>{{ stats.SUSPECTED_MISUSE }}</strong></td>
+            <td>
+                {% if total > 0 %}
+                    {{ ((stats.SUSPECTED_MISUSE / total) * 100) | round(1) }}%
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<!-- ================= ALERT RECORDS ================= -->
+
+<div class="card">
+
+    <div class="section-heading">Processed Alert Records</div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <p style="margin:0;">
+            <strong>Total Alerts:</strong> {{ alerts|length }}
+        </p>
+
+        <!-- Search filter -->
+        <input type="text"
+               id="alertSearch"
+               placeholder="&#128269; Search by name, type or decision..."
+               style="width:320px; margin-bottom:0; padding:8px 12px; font-size:13px;">
+    </div>
+
+    {% if alerts %}
+
+    <div style="overflow-x: auto;">
+    <table id="alertsTable">
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Phone</th>
+            <th>Emergency</th>
+            <th>Message</th>
+            <th>Priority</th>
+            <th>Credibility</th>
+            <th>Trust</th>
+            <th>Risk</th>
+            <th>Decision</th>
+            <th>Timestamp</th>
+        </tr>
+
+        {% for alert in alerts %}
+
+        {% if alert.final_decision == 'IMMEDIATE_ESCALATION' %}
+            {% set decision_class = 'high' %}
+        {% elif alert.final_decision == 'CONDITIONAL_ESCALATION' %}
+            {% set decision_class = 'conditional' %}
+        {% elif alert.final_decision == 'REVIEW_REQUIRED' %}
+            {% set decision_class = 'medium' %}
+        {% elif alert.final_decision == 'LOG_AND_MONITOR' %}
+            {% set decision_class = 'low' %}
+        {% else %}
+            {% set decision_class = 'misuse' %}
+        {% endif %}
+
+        <tr>
+            <td>{{ alert.alert_id }}</td>
+            <td>{{ alert.user_name }}</td>
+            <td>{{ alert.phone }}</td>
+            <td>{{ alert.emergency_type | capitalize }}</td>
+
+            <!-- Message preview — truncated for table readability -->
+            <td style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                title="{{ alert.message }}">
+                {{ alert.message }}
+            </td>
+
+            <td>{{ alert.priority_score }}</td>
+            <td>{{ alert.credibility_score }}</td>
+            <td>{{ alert.trust_score }}</td>
+            <td>{{ alert.risk_score }}</td>
+
+            <td>
+                <span class="badge {{ decision_class }}">
+                    {{ alert.final_decision.replace("_", " ") }}
+                </span>
+            </td>
+
+            <td style="white-space:nowrap;">{{ alert.formatted_time }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+    </div>
+
+    {% else %}
+
+    <div class="info-box">
+        No alerts have been processed yet. Alerts will appear here once reports are submitted.
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script>
+    // Live search filter for alerts table
+    var searchInput = document.getElementById('alertSearch');
+    var table = document.getElementById('alertsTable');
+
+    if (searchInput && table) {
+        searchInput.addEventListener('input', function () {
+            var query = searchInput.value.toLowerCase();
+            var rows = table.querySelectorAll('tr');
+
+            rows.forEach(function (row, index) {
+                if (index === 0) return; // skip header
+                var text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    }
+</script>
+
+{% endblock %}

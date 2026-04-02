@@ -1,0 +1,391 @@
+message,emergency_type,decision
+house is on fire,fire,IMMEDIATE_ESCALATION
+apartment building on fire,fire,IMMEDIATE_ESCALATION
+kitchen fire spreading fast,fire,IMMEDIATE_ESCALATION
+factory fire with smoke everywhere,fire,IMMEDIATE_ESCALATION
+warehouse burning heavily,fire,IMMEDIATE_ESCALATION
+fire in my neighbor house,fire,IMMEDIATE_ESCALATION
+large fire in office building,fire,IMMEDIATE_ESCALATION
+school building caught fire,fire,IMMEDIATE_ESCALATION
+hotel floor on fire,fire,IMMEDIATE_ESCALATION
+gas cylinder exploded causing fire,fire,IMMEDIATE_ESCALATION
+flames spreading to upper floors,fire,IMMEDIATE_ESCALATION
+entire building is on fire people trapped,fire,IMMEDIATE_ESCALATION
+fire broke out in the basement,fire,IMMEDIATE_ESCALATION
+massive fire in shopping mall,fire,IMMEDIATE_ESCALATION
+fire spreading rapidly no way to escape,fire,IMMEDIATE_ESCALATION
+children trapped inside burning building,fire,IMMEDIATE_ESCALATION
+fire engulfed the entire house,fire,IMMEDIATE_ESCALATION
+explosion followed by fire in factory,fire,IMMEDIATE_ESCALATION
+multiple floors burning in apartment,fire,IMMEDIATE_ESCALATION
+fire blocking all exits people screaming,fire,IMMEDIATE_ESCALATION
+person not breathing needs help now,medical,IMMEDIATE_ESCALATION
+someone collapsed and is unconscious,medical,IMMEDIATE_ESCALATION
+heart attack happening right now,medical,IMMEDIATE_ESCALATION
+person is bleeding heavily from wound,medical,IMMEDIATE_ESCALATION
+my granny is not breathing,medical,IMMEDIATE_ESCALATION
+child is choking and cannot breathe,medical,IMMEDIATE_ESCALATION
+person overdosed on medication unconscious,medical,IMMEDIATE_ESCALATION
+severe allergic reaction person collapsing,medical,IMMEDIATE_ESCALATION
+person drowning in swimming pool,medical,IMMEDIATE_ESCALATION
+patient is unresponsive and turning blue,medical,IMMEDIATE_ESCALATION
+someone fell from building bleeding badly,medical,IMMEDIATE_ESCALATION
+man having seizure on the road,medical,IMMEDIATE_ESCALATION
+woman collapsed in supermarket unconscious,medical,IMMEDIATE_ESCALATION
+person stabbed and bleeding on street,medical,IMMEDIATE_ESCALATION
+child fell from second floor not moving,medical,IMMEDIATE_ESCALATION
+old man collapsed on stairs not responding,medical,IMMEDIATE_ESCALATION
+person hit by car lying unconscious,medical,IMMEDIATE_ESCALATION
+someone is dying need ambulance immediately,medical,IMMEDIATE_ESCALATION
+person having severe chest pain collapsing,medical,IMMEDIATE_ESCALATION
+baby not breathing turn blue need help,medical,IMMEDIATE_ESCALATION
+man with gun threatening people,crime,IMMEDIATE_ESCALATION
+armed robbery happening now,crime,IMMEDIATE_ESCALATION
+someone breaking into my house,crime,IMMEDIATE_ESCALATION
+person attacking people with knife,crime,IMMEDIATE_ESCALATION
+gunshots heard nearby,crime,IMMEDIATE_ESCALATION
+man chasing me with weapon,crime,IMMEDIATE_ESCALATION
+kidnap attempt happening,crime,IMMEDIATE_ESCALATION
+violent fight with weapons,crime,IMMEDIATE_ESCALATION
+armed person outside bank,crime,IMMEDIATE_ESCALATION
+dangerous criminal inside house,crime,IMMEDIATE_ESCALATION
+intruder inside my house right now,crime,IMMEDIATE_ESCALATION
+someone forced my door open with weapon,crime,IMMEDIATE_ESCALATION
+thief broke into my home armed,crime,IMMEDIATE_ESCALATION
+masked person entered my house with knife,crime,IMMEDIATE_ESCALATION
+man stabbing people in the street,crime,IMMEDIATE_ESCALATION
+shooting happening inside mall,crime,IMMEDIATE_ESCALATION
+person being attacked with iron rod,crime,IMMEDIATE_ESCALATION
+woman being dragged into car forcefully,crime,IMMEDIATE_ESCALATION
+armed men robbing people at gunpoint,crime,IMMEDIATE_ESCALATION
+someone firing shots outside my window,crime,IMMEDIATE_ESCALATION
+major road accident multiple people injured,accident,IMMEDIATE_ESCALATION
+car crash with people trapped inside,accident,IMMEDIATE_ESCALATION
+bus overturned on highway many injured,accident,IMMEDIATE_ESCALATION
+truck collision people bleeding on road,accident,IMMEDIATE_ESCALATION
+train accident many passengers injured,accident,IMMEDIATE_ESCALATION
+building collapsed people buried inside,accident,IMMEDIATE_ESCALATION
+gas pipeline explosion injuries reported,accident,IMMEDIATE_ESCALATION
+chemical plant explosion workers injured,accident,IMMEDIATE_ESCALATION
+crane fell on workers at construction site,accident,IMMEDIATE_ESCALATION
+multiple car pileup highway people trapped,accident,IMMEDIATE_ESCALATION
+motorcycle accident rider unconscious bleeding,accident,IMMEDIATE_ESCALATION
+pedestrian hit by speeding car not moving,accident,IMMEDIATE_ESCALATION
+scaffolding collapsed workers fell injured,accident,IMMEDIATE_ESCALATION
+electrical accident worker unconscious,accident,IMMEDIATE_ESCALATION
+explosion in factory workers trapped,accident,IMMEDIATE_ESCALATION
+vehicle fell into river passengers inside,accident,IMMEDIATE_ESCALATION
+hit and run accident victim bleeding badly,accident,IMMEDIATE_ESCALATION
+child run over by vehicle not conscious,accident,IMMEDIATE_ESCALATION
+machine accident worker hand crushed,accident,IMMEDIATE_ESCALATION
+boat capsized people drowning in river,accident,IMMEDIATE_ESCALATION
+smoke visible from apartment window,fire,CONDITIONAL_ESCALATION
+neighbor balcony has flames but no one nearby,fire,CONDITIONAL_ESCALATION
+fire alarm triggered in my office building,fire,CONDITIONAL_ESCALATION
+small kitchen fire contained but still smoking,fire,CONDITIONAL_ESCALATION
+burning smell coming from electrical panel,fire,CONDITIONAL_ESCALATION
+kitchen stove caught fire,fire,CONDITIONAL_ESCALATION
+fire alarm going off in building,fire,CONDITIONAL_ESCALATION
+electric wire burning smell in room,fire,CONDITIONAL_ESCALATION
+smoke coming from apartment window,fire,CONDITIONAL_ESCALATION
+small fire in trash bin near building,fire,CONDITIONAL_ESCALATION
+possible fire smell coming from basement,fire,CONDITIONAL_ESCALATION
+candle fell and carpet caught fire,fire,CONDITIONAL_ESCALATION
+smoke detector going off repeatedly,fire,CONDITIONAL_ESCALATION
+neighbor house has small fire on balcony,fire,CONDITIONAL_ESCALATION
+vehicle caught fire in parking lot,fire,CONDITIONAL_ESCALATION
+elderly person collapsed on footpath,medical,CONDITIONAL_ESCALATION
+person having seizure in public place,medical,CONDITIONAL_ESCALATION
+woman appears to be having trouble breathing,medical,CONDITIONAL_ESCALATION
+person fell and seems badly hurt,medical,CONDITIONAL_ESCALATION
+someone fainted in the metro station,medical,CONDITIONAL_ESCALATION
+child appears to be having allergic reaction,medical,CONDITIONAL_ESCALATION
+old woman fell down stairs needs help,medical,CONDITIONAL_ESCALATION
+person vomiting blood in restaurant,medical,CONDITIONAL_ESCALATION
+man clutching chest in pain on road,medical,CONDITIONAL_ESCALATION
+unconscious person found in parking lot,medical,CONDITIONAL_ESCALATION
+person appears disoriented after accident,medical,CONDITIONAL_ESCALATION
+patient breathing but unresponsive,medical,CONDITIONAL_ESCALATION
+person hit head badly bleeding from scalp,medical,CONDITIONAL_ESCALATION
+woman collapsed in office needs help,medical,CONDITIONAL_ESCALATION
+runner collapsed during marathon event,medical,CONDITIONAL_ESCALATION
+suspicious man loitering outside school,crime,CONDITIONAL_ESCALATION
+fight happening outside the pub,crime,CONDITIONAL_ESCALATION
+someone trying to break car window,crime,CONDITIONAL_ESCALATION
+unknown vehicle following me for long time,crime,CONDITIONAL_ESCALATION
+person trying to open my car door,crime,CONDITIONAL_ESCALATION
+possible burglary attempt at my house,crime,CONDITIONAL_ESCALATION
+man threatening woman on the street,crime,CONDITIONAL_ESCALATION
+group of men surrounding lone person,crime,CONDITIONAL_ESCALATION
+someone snatched phone and running away,crime,CONDITIONAL_ESCALATION
+attempted robbery at convenience store,crime,CONDITIONAL_ESCALATION
+suspicious person with bag near bank,crime,CONDITIONAL_ESCALATION
+person being followed by unknown man,crime,CONDITIONAL_ESCALATION
+threatening phone calls received repeatedly,crime,CONDITIONAL_ESCALATION
+man broke my neighbor window trying to enter,crime,CONDITIONAL_ESCALATION
+someone trying to steal motorcycle outside,crime,CONDITIONAL_ESCALATION
+car engine on fire in parking lot,accident,CONDITIONAL_ESCALATION
+someone injured in minor road accident,accident,CONDITIONAL_ESCALATION
+person fell from bicycle and seems hurt,accident,CONDITIONAL_ESCALATION
+vehicle skidded and hit divider injuries,accident,CONDITIONAL_ESCALATION
+worker fell from ladder at construction site,accident,CONDITIONAL_ESCALATION
+two wheelers collided people injured,accident,CONDITIONAL_ESCALATION
+person fell into open manhole on road,accident,CONDITIONAL_ESCALATION
+accident near school zone children involved,accident,CONDITIONAL_ESCALATION
+electric shock victim conscious but shaking,accident,CONDITIONAL_ESCALATION
+person fell from tree while working,accident,CONDITIONAL_ESCALATION
+car rolled over no fire but people hurt,accident,CONDITIONAL_ESCALATION
+cyclist hit by car limping badly,accident,CONDITIONAL_ESCALATION
+scaffolding fell near workers no serious injury,accident,CONDITIONAL_ESCALATION
+auto rickshaw overturned passengers hurt,accident,CONDITIONAL_ESCALATION
+person slipped on wet floor unconscious,accident,CONDITIONAL_ESCALATION
+possible gas leak smell in building,other,CONDITIONAL_ESCALATION
+water tank collapsed near populated area,other,CONDITIONAL_ESCALATION
+wild animal spotted near residential area,other,CONDITIONAL_ESCALATION
+flood water entering ground floor houses,other,CONDITIONAL_ESCALATION
+live electric wire fallen on road,other,CONDITIONAL_ESCALATION
+tree fell on car passengers may be hurt,other,CONDITIONAL_ESCALATION
+road cave in near busy intersection,other,CONDITIONAL_ESCALATION
+chemical smell from nearby factory,other,CONDITIONAL_ESCALATION
+transformer explosion near houses,other,CONDITIONAL_ESCALATION
+stampede like situation at event,other,CONDITIONAL_ESCALATION
+strange noise coming from locked storage room,other,REVIEW_REQUIRED
+person seems disoriented and confused on road,medical,REVIEW_REQUIRED
+someone banging doors loudly in apartment,other,REVIEW_REQUIRED
+unclear if accident or altercation happened nearby,other,REVIEW_REQUIRED
+heard shouting from neighbor flat no visible sign,crime,REVIEW_REQUIRED
+unclear situation outside my house need advice,other,REVIEW_REQUIRED
+someone seems to be crying loudly in stairwell,other,REVIEW_REQUIRED
+received threat message online not sure if real,crime,REVIEW_REQUIRED
+person acting strangely in shopping mall,other,REVIEW_REQUIRED
+dog attacked someone but wound looks minor,other,REVIEW_REQUIRED
+someone asking general question about emergency,other,REVIEW_REQUIRED
+strange unclear message received from neighbor,other,REVIEW_REQUIRED
+unknown message type detected need advice,other,REVIEW_REQUIRED
+uncertain report needs review from authority,other,REVIEW_REQUIRED
+ambiguous situation described by caller,other,REVIEW_REQUIRED
+burning smell in hallway not sure source,fire,REVIEW_REQUIRED
+light smoke from neighbor kitchen unclear,fire,REVIEW_REQUIRED
+possible fire smell in office not confirmed,fire,REVIEW_REQUIRED
+someone burning garbage nearby complaint,fire,REVIEW_REQUIRED
+minor smoke in corridor no visible flame,fire,REVIEW_REQUIRED
+person limping on road may have been hit,accident,REVIEW_REQUIRED
+abandoned vehicle in middle of road blocking,accident,REVIEW_REQUIRED
+broken traffic signal causing minor accidents,accident,REVIEW_REQUIRED
+pothole caused vehicle to swerve complaint,accident,REVIEW_REQUIRED
+unclear road accident from distance,accident,REVIEW_REQUIRED
+person arguing loudly could become violent,crime,REVIEW_REQUIRED
+unknown person photographing building entrance,crime,REVIEW_REQUIRED
+suspicious looking package left in corridor,crime,REVIEW_REQUIRED
+someone reported feeling unsafe in area,crime,REVIEW_REQUIRED
+anonymous tip about possible crime activity,crime,REVIEW_REQUIRED
+elderly person wandering alone seems lost,medical,REVIEW_REQUIRED
+person sitting on road unclear if injured,medical,REVIEW_REQUIRED
+someone asking for medicine seems unwell,medical,REVIEW_REQUIRED
+child crying alone near park no adult nearby,medical,REVIEW_REQUIRED
+person lying on bench may be sleeping or ill,medical,REVIEW_REQUIRED
+water logging complaint near hospital area,other,REVIEW_REQUIRED
+stray animal behaving aggressively complaint,other,REVIEW_REQUIRED
+construction noise complaint at night,other,REVIEW_REQUIRED
+complaint about open drainage near school,other,REVIEW_REQUIRED
+complaint about broken street light dark area,other,REVIEW_REQUIRED
+unclear report of smoke seen from far distance,fire,REVIEW_REQUIRED
+neighbor says heard something like gunshot,crime,REVIEW_REQUIRED
+someone reported seeing strangers at night,crime,REVIEW_REQUIRED
+partial information about accident received,accident,REVIEW_REQUIRED
+tip about someone acting suspicious in park,crime,REVIEW_REQUIRED
+report of minor scuffle outside restaurant,crime,REVIEW_REQUIRED
+saw someone collapse briefly then get up,medical,REVIEW_REQUIRED
+person acting erratically on footpath,medical,REVIEW_REQUIRED
+complaint about loud sounds from warehouse,other,REVIEW_REQUIRED
+someone reported unusual activity in building,other,REVIEW_REQUIRED
+minor injury reported details not clear,accident,REVIEW_REQUIRED
+unverified report of fight in locality,crime,REVIEW_REQUIRED
+tip about vehicle driving recklessly,accident,REVIEW_REQUIRED
+someone reported smelling gas faintly,other,REVIEW_REQUIRED
+incomplete emergency report details missing,other,REVIEW_REQUIRED
+caller disconnected before giving full info,other,REVIEW_REQUIRED
+report of minor altercation at bus stop,crime,REVIEW_REQUIRED
+child reported alone at school after hours,other,REVIEW_REQUIRED
+unconfirmed report of suspicious package,other,REVIEW_REQUIRED
+person seen trying doors at night unclear,crime,REVIEW_REQUIRED
+complaint about threatening graffiti on wall,crime,REVIEW_REQUIRED
+report of someone attempting self harm unclear,medical,REVIEW_REQUIRED
+report of aggressive individual no weapon seen,crime,REVIEW_REQUIRED
+unverified flood warning in low lying area,other,REVIEW_REQUIRED
+tip about possible drug activity in area,crime,REVIEW_REQUIRED
+report of minor fire quickly extinguished,fire,REVIEW_REQUIRED
+caller reports seeing blood on road no victim,accident,REVIEW_REQUIRED
+unusual crowd gathering near market,other,REVIEW_REQUIRED
+report of someone being harassed verbally,crime,REVIEW_REQUIRED
+unclear report needs verification from site,other,REVIEW_REQUIRED
+person reported acting suspiciously near atm,crime,REVIEW_REQUIRED
+minor water leak reported near electrical box,other,REVIEW_REQUIRED
+neighbor reported fighting sounds at night,crime,REVIEW_REQUIRED
+report of abandoned child near station,other,REVIEW_REQUIRED
+vehicle running red light nearly hit someone,accident,REVIEW_REQUIRED
+complaint about illegal construction nearby,other,REVIEW_REQUIRED
+report of unknown substance spilled on road,other,REVIEW_REQUIRED
+caller unsure if what they saw was emergency,other,REVIEW_REQUIRED
+second hand report of emergency not confirmed,other,REVIEW_REQUIRED
+report of elderly person not seen for days,medical,REVIEW_REQUIRED
+weather is nice today,other,LOG_AND_MONITOR
+good morning everyone,other,LOG_AND_MONITOR
+just checking the system,other,LOG_AND_MONITOR
+random message here,other,LOG_AND_MONITOR
+nothing important to report,other,LOG_AND_MONITOR
+casual chat message,other,LOG_AND_MONITOR
+normal day no issues,other,LOG_AND_MONITOR
+just saying hi,other,LOG_AND_MONITOR
+simple message test,other,LOG_AND_MONITOR
+hello,other,LOG_AND_MONITOR
+just wanted to report a minor noise complaint,other,LOG_AND_MONITOR
+everything is fine here just checking in,other,LOG_AND_MONITOR
+my neighbor plays music loud at night,other,LOG_AND_MONITOR
+stray dog wandering in colony no aggression,other,LOG_AND_MONITOR
+minor water leakage from pipe no emergency,other,LOG_AND_MONITOR
+power outage in my street no injuries,other,LOG_AND_MONITOR
+traffic jam on main road nothing serious,other,LOG_AND_MONITOR
+found a lost wallet on road no emergency,other,LOG_AND_MONITOR
+street light not working near my house,other,LOG_AND_MONITOR
+parked car blocking driveway minor issue,other,LOG_AND_MONITOR
+tree branch fallen on road no injuries,other,LOG_AND_MONITOR
+minor dispute between neighbors resolved now,other,LOG_AND_MONITOR
+someone left garbage outside my building,other,LOG_AND_MONITOR
+a bicycle is blocking the footpath,other,LOG_AND_MONITOR
+waterlogging on street after rain no injuries,other,LOG_AND_MONITOR
+general inquiry about emergency procedures,other,LOG_AND_MONITOR
+road repair needed near school zone,other,LOG_AND_MONITOR
+complaint about stray animals in area,other,LOG_AND_MONITOR
+public tap leaking near park no emergency,other,LOG_AND_MONITOR
+potholes on road causing inconvenience,other,LOG_AND_MONITOR
+asking about nearest hospital location,other,LOG_AND_MONITOR
+requesting information about fire safety,other,LOG_AND_MONITOR
+want to know emergency contact numbers,other,LOG_AND_MONITOR
+minor headache no emergency,medical,LOG_AND_MONITOR
+feeling slightly unwell not serious,medical,LOG_AND_MONITOR
+asking about medicine for cold,medical,LOG_AND_MONITOR
+want to report broken footpath near park,other,LOG_AND_MONITOR
+stray cats making noise at night complaint,other,LOG_AND_MONITOR
+minor drainage issue near my house,other,LOG_AND_MONITOR
+complaint about overgrown trees on road,other,LOG_AND_MONITOR
+mosquito menace in area general complaint,other,LOG_AND_MONITOR
+streetlight flickering complaint,other,LOG_AND_MONITOR
+asking for directions to police station,other,LOG_AND_MONITOR
+general feedback about area cleanliness,other,LOG_AND_MONITOR
+want to report encroachment on footpath,other,LOG_AND_MONITOR
+pigeon menace on building complaint,other,LOG_AND_MONITOR
+minor crack in road surface complaint,other,LOG_AND_MONITOR
+bus not arriving on time complaint,other,LOG_AND_MONITOR
+asking about nearest emergency shelter,other,LOG_AND_MONITOR
+general inquiry no emergency,other,LOG_AND_MONITOR
+checking if this app is working,other,LOG_AND_MONITOR
+just browsing through the app,other,LOG_AND_MONITOR
+testing my phone connection,other,LOG_AND_MONITOR
+no issues everything normal here,other,LOG_AND_MONITOR
+reporting a minor civic issue,other,LOG_AND_MONITOR
+looking for help with directions,other,LOG_AND_MONITOR
+general question about city services,other,LOG_AND_MONITOR
+minor inconvenience nothing serious,other,LOG_AND_MONITOR
+informational message no action needed,other,LOG_AND_MONITOR
+routine check in from local volunteer,other,LOG_AND_MONITOR
+community event happening this weekend,other,LOG_AND_MONITOR
+noise from construction site during day,other,LOG_AND_MONITOR
+asking about garbage collection schedule,other,LOG_AND_MONITOR
+water supply disruption minor complaint,other,LOG_AND_MONITOR
+internet outage in area no emergency,other,LOG_AND_MONITOR
+request for speed breaker near school,other,LOG_AND_MONITOR
+asking about nearest pharmacy,medical,LOG_AND_MONITOR
+minor skin irritation seeking advice,medical,LOG_AND_MONITOR
+slight fever at home monitoring it,medical,LOG_AND_MONITOR
+asking about vaccination center location,medical,LOG_AND_MONITOR
+routine health checkup inquiry,medical,LOG_AND_MONITOR
+minor sprain from walking no emergency,medical,LOG_AND_MONITOR
+asking about blood donation camp,medical,LOG_AND_MONITOR
+inquiry about ambulance booking process,medical,LOG_AND_MONITOR
+minor fender bender no injuries,accident,LOG_AND_MONITOR
+bicycle tyre punctured on road,accident,LOG_AND_MONITOR
+car breakdown on side of road no injury,accident,LOG_AND_MONITOR
+vehicle ran out of fuel no emergency,accident,LOG_AND_MONITOR
+minor scratch on vehicle in parking,accident,LOG_AND_MONITOR
+road marking faded complaint,accident,LOG_AND_MONITOR
+testing fire alarm system,fire,SUSPECTED_MISUSE
+this is just a fire drill test,fire,SUSPECTED_MISUSE
+fake fire report for testing,fire,SUSPECTED_MISUSE
+lol fake fire alarm,fire,SUSPECTED_MISUSE
+just joking about fire,fire,SUSPECTED_MISUSE
+system testing message,other,SUSPECTED_MISUSE
+testing platform features,other,SUSPECTED_MISUSE
+this is a prank message,other,SUSPECTED_MISUSE
+fake alert message lol,other,SUSPECTED_MISUSE
+just for fun message,other,SUSPECTED_MISUSE
+submitted this by accident ignore it please,other,SUSPECTED_MISUSE
+this is not real just testing your response,other,SUSPECTED_MISUSE
+haha my friend dared me to send this,other,SUSPECTED_MISUSE
+just seeing what happens when I press submit,other,SUSPECTED_MISUSE
+fake emergency for school assignment purposes,other,SUSPECTED_MISUSE
+I am bored so sending this for fun lol,other,SUSPECTED_MISUSE
+nothing happened just wanted to try this app,other,SUSPECTED_MISUSE
+sent by mistake not an actual emergency,other,SUSPECTED_MISUSE
+my friend told me to test this system,other,SUSPECTED_MISUSE
+this is a dummy report please disregard,other,SUSPECTED_MISUSE
+hehe this is not real just playing around,other,SUSPECTED_MISUSE
+lmao sending fake emergency for laughs,other,SUSPECTED_MISUSE
+testing testing one two three not real,other,SUSPECTED_MISUSE
+this is fake do not respond,other,SUSPECTED_MISUSE
+prank call do not take this seriously,other,SUSPECTED_MISUSE
+just checking if anyone reads these lol,other,SUSPECTED_MISUSE
+not an emergency just curious about system,other,SUSPECTED_MISUSE
+sending this for timepass nothing happened,other,SUSPECTED_MISUSE
+joke report ignore this please,other,SUSPECTED_MISUSE
+fake message sent by mistake sorry,other,SUSPECTED_MISUSE
+this is not an emergency just exploring app,other,SUSPECTED_MISUSE
+my little brother sent this by accident,other,SUSPECTED_MISUSE
+test report from developer ignore,other,SUSPECTED_MISUSE
+demo submission not a real emergency,other,SUSPECTED_MISUSE
+staging test message not real,other,SUSPECTED_MISUSE
+haha fire fake lol just kidding,fire,SUSPECTED_MISUSE
+pretending there is an accident lol,accident,SUSPECTED_MISUSE
+fake medical emergency for fun haha,medical,SUSPECTED_MISUSE
+not real just joking around with app,other,SUSPECTED_MISUSE
+this message is intentionally fake,other,SUSPECTED_MISUSE
+i am not in any danger just testing,other,SUSPECTED_MISUSE
+no emergency here just curious about system,other,SUSPECTED_MISUSE
+sending garbage message to see output,other,SUSPECTED_MISUSE
+this report has no real information,other,SUSPECTED_MISUSE
+abc xyz random fake report,other,SUSPECTED_MISUSE
+null null null test input,other,SUSPECTED_MISUSE
+fake fake fake not real emergency,other,SUSPECTED_MISUSE
+my classmate told me to send this prank,other,SUSPECTED_MISUSE
+this is a test submission for college project,other,SUSPECTED_MISUSE
+ignore this is not real we are just testing,other,SUSPECTED_MISUSE
+nothing to report just wanted to try,other,SUSPECTED_MISUSE
+random words fire gun accident fake lol,other,SUSPECTED_MISUSE
+this app is being tested right now,other,SUSPECTED_MISUSE
+sending this to check response time only,other,SUSPECTED_MISUSE
+not serious just a test from our team,other,SUSPECTED_MISUSE
+this is a simulation not a real call,other,SUSPECTED_MISUSE
+we are doing a drill this is not real,other,SUSPECTED_MISUSE
+test case submission from student project,other,SUSPECTED_MISUSE
+this is intentionally a low quality message,other,SUSPECTED_MISUSE
+evaluation test message not emergency,other,SUSPECTED_MISUSE
+probe message sent by automated system test,other,SUSPECTED_MISUSE
+dummy data entry for database testing,other,SUSPECTED_MISUSE
+qa testing message please ignore,other,SUSPECTED_MISUSE
+automated test script submission,other,SUSPECTED_MISUSE
+unit test message not real emergency,other,SUSPECTED_MISUSE
+fake crime report for testing purposes lol,crime,SUSPECTED_MISUSE
+pretend robbery happening haha just joke,crime,SUSPECTED_MISUSE
+fake accident report nothing happened hehe,accident,SUSPECTED_MISUSE
+this is all made up not real medical issue,medical,SUSPECTED_MISUSE
+imaginary fire report for fun timepass,fire,SUSPECTED_MISUSE
+not in danger this is a test from friend,other,SUSPECTED_MISUSE
+sending this as a dare from friends lol,other,SUSPECTED_MISUSE
+joking around with emergency system haha,other,SUSPECTED_MISUSE
+this system is being pranked right now,other,SUSPECTED_MISUSE
+we are all safe this is fake report,other,SUSPECTED_MISUSE
+nobody is hurt this is just for testing,other,SUSPECTED_MISUSE
+fake report generated by script,other,SUSPECTED_MISUSE
+all fields filled to test system only,other,SUSPECTED_MISUSE
+no real issue here test submission only,other,SUSPECTED_MISUSE
+this is a test please do not dispatch anyone,other,SUSPECTED_MISUSE
