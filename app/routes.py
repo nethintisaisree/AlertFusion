@@ -270,6 +270,7 @@ def report():
 # =========================
 
 @test_bp.route("/admin/alerts")
+@login_required
 def admin_alerts():
     alerts = fetch_all_alerts()
     stats  = fetch_decision_stats()
@@ -288,6 +289,7 @@ def admin_alerts():
 
 
 @test_bp.route("/admin/audit")
+@login_required
 def admin_audit():
     logs = fetch_alert_audit_logs()
 
