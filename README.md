@@ -220,6 +220,7 @@ After setup, submit these test reports to verify all 5 decision categories:
 |---|---|---|---|---|---|
 | Ravi Kumar | 9876543210 | Hyderabad, Block C | Fire | There is a fire on the third floor, people are trapped and not breathing | `IMMEDIATE_ESCALATION` |
 | Priya Sharma | 9123456780 | Secunderabad | Crime | Someone is following me and acting suspicious near my house | `CONDITIONAL_ESCALATION` |
+| Arjun Reddy | 9000011122 | Kukatpally, Lane 4 | Other | I heard some strange sounds from the locked room next door not sure what is happening | `REVIEW_REQUIRED` |
 | Sneha Patel | 9988776655 | Banjara Hills | Other | There is a pothole on the road near my house causing minor inconvenience | `LOG_AND_MONITOR` |
 | Test User | 1234567890 | Nowhere | Other | lol this is just a fake prank not a real emergency just testing | `SUSPECTED_MISUSE` |
 

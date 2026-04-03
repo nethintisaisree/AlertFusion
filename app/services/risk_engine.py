@@ -26,15 +26,16 @@ CRITICAL_KEYWORDS = {
     "suicide", "kill", "murder", "stab",
     "stabbed", "stabbing", "collapsed",
     "faint", "unresponsive", "flames", "drowning",
-    "choking", "overdose"
+    "choking", "overdose", "robbery", "robber",
+    "burglar", "burglary", "intruder", "kidnapping"
 }
 
 MODERATE_KEYWORDS = {
     "accident", "injured", "crash", "ambulance",
     "threat", "attack", "emergency", "help",
-    "danger", "robbery", "theft", "break in",
-    "intruder", "burglar", "trespass", "forced entry",
-    "hurt", "pain", "trapped", "stuck","thief"
+    "danger", "theft", "break in",
+    "trespass", "forced entry",
+    "hurt", "pain", "trapped", "stuck"
 }
 
 LOW_KEYWORDS = {
@@ -45,7 +46,9 @@ LOW_KEYWORDS = {
 
 INTENSITY_WORDS = {
     "severe", "major", "critical", "urgent",
-    "immediately", "serious", "right now", "please hurry"
+    "immediately", "serious", "right now", "please hurry",
+    "send help", "need help now", "please help", "still inside",
+    "thief inside", "intruder inside"
 }
 
 

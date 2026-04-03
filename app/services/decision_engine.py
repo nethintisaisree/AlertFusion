@@ -22,7 +22,9 @@ CRITICAL_KEYWORDS = {
     "fire", "gun", "shoot", "bleeding", "unconscious",
     "not breathing", "heart attack", "armed",
     "explosion", "dying", "suicide", "stab", "knife",
-    "drowning", "choking", "overdose", "poisoning", "kidnapping"
+    "drowning", "choking", "overdose", "poisoning", "kidnapping",
+    "robbery", "robber", "burglar", "burglary", "intruder",
+    "thief inside", "still inside", "trapped inside"
 }
 
 SAFETY_OVERRIDE_KEYWORDS = {
