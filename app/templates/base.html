@@ -63,7 +63,7 @@ body {
     border-bottom: 2px solid #ffffff;
 }
 
-/* Active nav link — set via Jinja in each template */
+/* Active nav link - set via Jinja in each template */
 .nav-links a.active {
     color: #ffffff;
     border-bottom: 2px solid #4fc3f7;
@@ -193,7 +193,7 @@ textarea {
 .ecs-low    { color: #2ecc71; }
 
 /* =====================================================
-   SCORE LABEL ROW  ← THIS WAS MISSING (BUG FIX)
+   SCORE LABEL ROW  <- THIS WAS MISSING (BUG FIX)
 ===================================================== */
 
 .score-label {
@@ -287,7 +287,7 @@ tr:hover {
 }
 
 /* =====================================================
-   RESPONSIVE — BASIC MOBILE SUPPORT
+   RESPONSIVE - BASIC MOBILE SUPPORT
 ===================================================== */
 
 @media (max-width: 768px) {
@@ -316,6 +316,7 @@ tr:hover {
 }
 
 </style>
+<link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
 </head>
 
 <body>
@@ -323,7 +324,7 @@ tr:hover {
 <div class="navbar">
     <div class="brand">
 
-        <!-- AlertFusion Logo — Shield + Pulse Line -->
+        <!-- AlertFusion Logo - Shield + Pulse Line -->
         <svg width="38" height="38" viewBox="0 0 36 36"
              fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Shield -->
@@ -337,10 +338,10 @@ tr:hover {
         </svg>
 
         <div>
-            <div style="font-size:20px; font-weight:700; letter-spacing:0.5px; line-height:1.2;">
-                AlertFusion
+            <div class="brand-meta">
+                <span class="brand-title">AlertFusion</span>
+                <span class="brand-subtitle">Intelligent Emergency Alert Platform</span>
             </div>
-
         </div>
 
     </div>
@@ -353,17 +354,12 @@ tr:hover {
         {% if session.get("admin_logged_in") %}
             <a href="/admin/alerts">Dashboard</a>
             <a href="/admin/audit">Audit</a>
-            <a href="/admin/logout"
-               style="background-color:#e74c3c; color:white; padding:6px 14px;
-                      border-radius:6px; margin-left:10px; font-size:13px;">
-                &#128275; Logout
+            <a href="/admin/logout" class="nav-danger">
+                Logout
             </a>
         {% else %}
-            <a href="/admin/login"
-               style="background-color:#1f2d3d; color:#4fc3f7; padding:6px 14px;
-                      border-radius:6px; border:1px solid #4fc3f7;
-                      margin-left:10px; font-size:13px;">
-                &#128274; Admin Login
+            <a href="/admin/login" class="nav-cta">
+                Admin Login
             </a>
         {% endif %}
     </div>
@@ -375,7 +371,7 @@ tr:hover {
 </div>
 
 <div class="footer">
-    Final Year Project &bull; Bachelor of Computer Applications &bull; AlertFusion
+    Final Year Project | Bachelor of Computer Applications | AlertFusion
 </div>
 
 <!-- =====================================================
@@ -385,7 +381,7 @@ tr:hover {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Score label progress bars — color coded by value
+    // Score label progress bars - color coded by value
     document.querySelectorAll('.progress-fill[data-width]').forEach(function (el) {
         var w = parseInt(el.getAttribute('data-width'), 10) || 0;
         el.style.width = w + '%';
@@ -413,3 +409,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
+
+

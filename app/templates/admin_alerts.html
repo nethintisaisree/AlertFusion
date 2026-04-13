@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="page-header">
+    <div class="eyebrow">Operations</div>
     <h1>Administrative Alerts Dashboard</h1>
     <p>
         Monitoring and statistical overview of all processed emergency reports.
@@ -22,10 +23,11 @@
         stats.SUSPECTED_MISUSE
     ) %}
 
-    <p style="color:#5c6b7a; font-size:13px; margin-top:-10px; margin-bottom:16px;">
+    <p class="helper-text" style="margin-top:-2px; margin-bottom:12px;">
         Total alerts processed: <strong>{{ total }}</strong>
     </p>
 
+    <div class="table-wrap">
     <table>
         <tr>
             <th>Decision Type</th>
@@ -40,7 +42,7 @@
                 {% if total > 0 %}
                     {{ ((stats.IMMEDIATE_ESCALATION / total) * 100) | round(1) }}%
                 {% else %}
-                    —
+                    -
                 {% endif %}
             </td>
         </tr>
@@ -52,7 +54,7 @@
                 {% if total > 0 %}
                     {{ ((stats.CONDITIONAL_ESCALATION / total) * 100) | round(1) }}%
                 {% else %}
-                    —
+                    -
                 {% endif %}
             </td>
         </tr>
@@ -64,7 +66,7 @@
                 {% if total > 0 %}
                     {{ ((stats.REVIEW_REQUIRED / total) * 100) | round(1) }}%
                 {% else %}
-                    —
+                    -
                 {% endif %}
             </td>
         </tr>
@@ -76,7 +78,7 @@
                 {% if total > 0 %}
                     {{ ((stats.LOG_AND_MONITOR / total) * 100) | round(1) }}%
                 {% else %}
-                    —
+                    -
                 {% endif %}
             </td>
         </tr>
@@ -88,12 +90,13 @@
                 {% if total > 0 %}
                     {{ ((stats.SUSPECTED_MISUSE / total) * 100) | round(1) }}%
                 {% else %}
-                    —
+                    -
                 {% endif %}
             </td>
         </tr>
 
     </table>
+    </div>
 
 </div>
 
@@ -103,7 +106,7 @@
 
     <div class="section-heading">Processed Alert Records</div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div class="top-controls">
         <p style="margin:0;">
             <strong>Total Alerts:</strong> {{ alerts|length }}
         </p>
@@ -111,13 +114,13 @@
         <!-- Search filter -->
         <input type="text"
                id="alertSearch"
-               placeholder="&#128269; Search by name, type or decision..."
-               style="width:320px; margin-bottom:0; padding:8px 12px; font-size:13px;">
+               class="search-input"
+               placeholder="Search by name, type or decision...">
     </div>
 
     {% if alerts %}
 
-    <div style="overflow-x: auto;">
+    <div class="table-wrap">
     <table id="alertsTable">
         <tr>
             <th>ID</th>
@@ -153,8 +156,8 @@
             <td>{{ alert.phone }}</td>
             <td>{{ alert.emergency_type | capitalize }}</td>
 
-            <!-- Message preview — truncated for table readability -->
-            <td style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+            <!-- Message preview - truncated for table readability -->
+            <td class="truncate-cell"
                 title="{{ alert.message }}">
                 {{ alert.message }}
             </td>
@@ -208,3 +211,5 @@
 </script>
 
 {% endblock %}
+
+

@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="page-header">
+    <div class="eyebrow">Traceability</div>
     <h1>System Audit &amp; Decision Logs</h1>
     <p>
         Complete traceability record of emergency scoring, confidence evaluation,
@@ -13,7 +14,7 @@
 
     <div class="section-heading">Decision Audit Records</div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div class="top-controls">
         <p style="margin:0;">
             <strong>Total Audit Records:</strong> {{ audit_logs|length }}
         </p>
@@ -21,13 +22,13 @@
         <!-- Search filter -->
         <input type="text"
                id="auditSearch"
-               placeholder="&#128269; Search by user, decision or phone..."
-               style="width:320px; margin-bottom:0; padding:8px 12px; font-size:13px;">
+               class="search-input"
+               placeholder="Search by user, decision or phone...">
     </div>
 
     {% if audit_logs %}
 
-    <div style="overflow-x: auto;">
+    <div class="table-wrap">
     <table id="auditTable">
         <tr>
             <th>Audit ID</th>
@@ -61,19 +62,19 @@
         <tr>
             <td>{{ log.audit_id }}</td>
             <td>{{ log.alert_id }}</td>
-            <td>{{ log.user_name or '—' }}</td>
-            <td>{{ log.phone or '—' }}</td>
+            <td>{{ log.user_name or '-' }}</td>
+            <td>{{ log.phone or '-' }}</td>
             <td>{{ log.priority_score }}</td>
             <td>{{ log.credibility_score }}</td>
             <td>{{ log.trust_score }}</td>
             <td>{{ log.risk_score }}</td>
 
-            <!-- Confidence: shows — if NULL (bug fix) -->
+            <!-- Confidence: shows - if NULL (bug fix) -->
             <td>
                 {% if log.confidence_score is not none %}
                     <strong>{{ log.confidence_score }}%</strong>
                 {% else %}
-                    <span style="color:#aaa;">—</span>
+                    <span style="color:#aaa;">-</span>
                 {% endif %}
             </td>
 
@@ -84,10 +85,9 @@
             </td>
 
             <!-- Explanation preview with hover for full text -->
-            <td style="max-width:180px; white-space:nowrap; overflow:hidden;
-                       text-overflow:ellipsis; font-size:12px; color:#5c6b7a;"
+            <td class="truncate-cell"
                 title="{{ log.explanation }}">
-                {{ log.explanation or '—' }}
+                {{ log.explanation or '-' }}
             </td>
 
             <td style="white-space:nowrap;">{{ log.formatted_time }}</td>
@@ -120,7 +120,8 @@
         escalation outcome. This ensures:
     </div>
 
-    <table style="margin-top:16px;">
+    <div class="table-wrap" style="margin-top:16px;">
+    <table>
         <tr>
             <th>Principle</th>
             <th>Description</th>
@@ -146,6 +147,7 @@
             <td>Demonstrates system fairness and explainability for evaluation purposes</td>
         </tr>
     </table>
+    </div>
 
 </div>
 
@@ -169,3 +171,5 @@
 </script>
 
 {% endblock %}
+
+

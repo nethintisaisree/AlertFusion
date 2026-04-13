@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="page-header">
+    <div class="eyebrow">Incident Intake</div>
     <h1>Emergency Incident Reporting</h1>
     <p>
         Submit emergency details for automated credibility assessment and escalation analysis.
@@ -14,57 +15,67 @@
 
     <form method="POST" action="/report" id="reportForm">
 
-        <label for="user_name">Full Name</label>
-        <input type="text"
-               id="user_name"
-               name="user_name"
-               required
-               minlength="3"
-               maxlength="100"
-               placeholder="Enter your full name"
-               autocomplete="name">
-
-        <label for="phone">Phone Number</label>
-        <input type="tel"
-               id="phone"
-               name="phone"
-               required
-               minlength="10"
-               maxlength="15"
-               pattern="[0-9+\-\s]{10,15}"
-               placeholder="Enter contact number (digits only)"
-               autocomplete="tel">
-        <small style="color:#5c6b7a; margin-top:-14px; margin-bottom:14px; display:block;">
-            Enter a valid 10-digit phone number. This is used for trust tracking.
-        </small>
+        <div class="grid two">
+            <div>
+                <label for="user_name">Full Name</label>
+                <input type="text"
+                       id="user_name"
+                       name="user_name"
+                       required
+                       minlength="3"
+                       maxlength="100"
+                       placeholder="Enter your full name"
+                       autocomplete="name">
+            </div>
+            <div>
+                <label for="phone">Phone Number</label>
+                <input type="tel"
+                       id="phone"
+                       name="phone"
+                       required
+                       minlength="10"
+                       maxlength="15"
+                       pattern="[0-9+\-\s]{10,15}"
+                       placeholder="Enter contact number (digits only)"
+                       autocomplete="tel">
+                <small class="helper-text">
+                    Enter a valid 10-digit phone number. This is used for trust tracking.
+                </small>
+            </div>
+        </div>
 
         <div class="section-heading" style="margin-top:10px;">Incident Details</div>
 
-        <label for="location">Incident Location</label>
-        <input type="text"
-               id="location"
-               name="location"
-               required
-               minlength="3"
-               maxlength="100"
-               placeholder="e.g. Block C, Hyderabad / Near City Hospital"
-               autocomplete="off">
-
-        <label for="emergency_type">Emergency Type</label>
-        <select id="emergency_type"
-                name="emergency_type"
-                required>
-            <option value="">-- Select Emergency Type --</option>
-            <option value="medical"> Medical</option>
-            <option value="fire"> Fire</option>
-            <option value="crime"> Crime</option>
-            <option value="accident"> Accident</option>
-            <option value="other"> Other</option>
-        </select>
+        <div class="grid two">
+            <div>
+                <label for="location">Incident Location</label>
+                <input type="text"
+                       id="location"
+                       name="location"
+                       required
+                       minlength="3"
+                       maxlength="100"
+                       placeholder="e.g. Block C, Hyderabad / Near City Hospital"
+                       autocomplete="off">
+            </div>
+            <div>
+                <label for="emergency_type">Emergency Type</label>
+                <select id="emergency_type"
+                        name="emergency_type"
+                        required>
+                    <option value="">-- Select Emergency Type --</option>
+                    <option value="medical">Medical</option>
+                    <option value="fire">Fire</option>
+                    <option value="crime">Crime</option>
+                    <option value="accident">Accident</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
 
         <label for="message">
             Emergency Description
-            <span id="charCount" style="font-weight:400; color:#5c6b7a; font-size:12px; margin-left:8px;">
+            <span id="charCount" class="helper-text" style="display:inline; margin-left:8px;">
                 0 / 500
             </span>
         </label>
@@ -77,20 +88,20 @@
             maxlength="500"
             placeholder="Describe the emergency situation clearly. Include what is happening, who is involved, and any immediate dangers..."
         ></textarea>
-        <small style="color:#5c6b7a; margin-top:-14px; margin-bottom:14px; display:block;">
+        <small class="helper-text">
             A detailed description improves credibility scoring and response accuracy.
         </small>
 
-        <!-- SECURITY FIX: misuse_count removed from form — now fetched from DB in routes.py -->
+        <!-- SECURITY FIX: misuse_count removed from form - now fetched from DB in routes.py -->
         <input type="hidden" name="source" value="web">
 
         <button type="submit" id="submitBtn" style="margin-top:10px;">
-            &#128276; Submit Emergency Alert
+            Submit Emergency Alert
         </button>
 
         <!-- Loading state (hidden by default) -->
-        <div id="loadingMsg" style="display:none; margin-top:16px; text-align:center; color:#5c6b7a; font-size:14px;">
-            &#9203; Analyzing report... please wait
+        <div id="loadingMsg" class="helper-text" style="display:none; margin-top:8px;">
+            Analyzing report, please wait...
         </div>
 
     </form>
@@ -109,6 +120,7 @@
         and semantic risk to determine the appropriate escalation level.
     </div>
 
+    <div class="table-wrap">
     <table>
         <tr>
             <th>Decision Level</th>
@@ -116,25 +128,26 @@
         </tr>
         <tr>
             <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
-            <td>Critical emergency detected — immediate response required</td>
+            <td>Critical emergency detected - immediate response required</td>
         </tr>
         <tr>
             <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
-            <td>Potential danger — escalation with verification</td>
+            <td>Potential danger - escalation with verification</td>
         </tr>
         <tr>
             <td><span class="badge medium">REVIEW REQUIRED</span></td>
-            <td>Uncertain situation — requires human review</td>
+            <td>Uncertain situation - requires human review</td>
         </tr>
         <tr>
             <td><span class="badge low">LOG &amp; MONITOR</span></td>
-            <td>Low-risk scenario — logged for monitoring</td>
+            <td>Low-risk scenario - logged for monitoring</td>
         </tr>
         <tr>
             <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
-            <td>Suspicious behavior detected — flagged, not blocked</td>
+            <td>Suspicious behavior detected - flagged, not blocked</td>
         </tr>
     </table>
+    </div>
 
 </div>
 
@@ -168,3 +181,5 @@
 </script>
 
 {% endblock %}
+
+

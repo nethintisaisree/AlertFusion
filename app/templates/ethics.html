@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="page-header">
+    <div class="eyebrow">Governance</div>
     <h1>Ethics &amp; Responsible AI Governance Framework</h1>
     <p>
         Ethical design principles and accountability mechanisms embedded within
@@ -29,7 +30,7 @@
         trigger immediate escalation, while moderate or uncertain cases are
         classified as <strong>Conditional Escalation</strong> or
         <strong>Review Required</strong>. Final authority always remains with
-        human responders in ambiguous situations — the AI assists, it does not replace.
+        human responders in ambiguous situations - the AI assists, it does not replace.
     </p>
 </div>
 
@@ -42,7 +43,7 @@
         suspicious behavior. Instead, trust scores are dynamically adjusted and
         monitored over time. This prevents wrongful denial of emergency access
         while maintaining system integrity. A user who previously misused the system
-        can still report a genuine emergency — the system will flag it for review
+        can still report a genuine emergency - the system will flag it for review
         rather than silently reject it.
     </p>
 </div>
@@ -55,7 +56,7 @@
         Reporter trust evolves based on historical behavior. False alerts gradually
         reduce trust scores, while legitimate reports preserve or improve credibility.
         This ensures fairness without permanent penalties. Trust penalties are
-        proportional — a single suspicious report does not severely impact a user's
+        proportional - a single suspicious report does not severely impact a user's
         standing.
     </p>
 </div>
@@ -69,7 +70,8 @@
         the factors that led to it. No decision is a black box.
     </p>
 
-    <table style="margin-top:12px;">
+    <div class="table-wrap" style="margin-top:12px;">
+    <table>
         <tr>
             <th>Factor</th>
             <th>What It Measures</th>
@@ -96,9 +98,10 @@
         </tr>
         <tr>
             <td><strong>ECS</strong></td>
-            <td>Combined probability of genuine emergency (0–1 scale)</td>
+            <td>Combined probability of genuine emergency (0-1 scale)</td>
         </tr>
     </table>
+    </div>
 
     <p style="margin-top:16px;">
         Audit logs maintain permanent traceability of all computations for
@@ -113,7 +116,7 @@
     <p>
         Only essential data fields are stored:
     </p>
-    <ul style="margin-top:8px; padding-left:20px; line-height:2;">
+    <ul style="margin-top:8px; padding-left:20px; line-height:1.8;">
         <li>User name and contact number</li>
         <li>Incident location</li>
         <li>Emergency description</li>
@@ -131,7 +134,7 @@
     <div class="section-heading">&#9878;&#65039; 6. Bias Mitigation Strategy</div>
     <p>
         The system avoids demographic profiling. Decisions are derived from structured
-        risk indicators, message content patterns, and behavioral consistency —
+        risk indicators, message content patterns, and behavioral consistency -
         not from personal attributes such as name, gender, or location demographics.
     </p>
     <p style="margin-top:10px;">
@@ -147,14 +150,14 @@
 <div class="card">
     <div class="section-heading">&#129302; 7. Responsible ML &amp; AI Use</div>
     <p>
-        The system uses two AI layers — a trained ML classifier and a semantic AI
-        engine — to support decision making. Both layers are:
+        The system uses two AI layers - a trained ML classifier and a semantic AI
+        engine - to support decision making. Both layers are:
     </p>
     <ul style="margin-top:8px; padding-left:20px; line-height:2;">
         <li>Used as <strong>supporting evidence</strong>, not sole decision makers</li>
         <li>Subject to override by rule-based logic for critical life-safety scenarios</li>
         <li>Logged with their confidence scores for transparency</li>
-        <li>Fallback-safe — if either layer fails, the system continues via rule-based logic</li>
+        <li>Fallback-safe - if either layer fails, the system continues via rule-based logic</li>
     </ul>
 </div>
 
@@ -167,7 +170,8 @@
         auditability. Acknowledged limitations and planned improvements:
     </p>
 
-    <table style="margin-top:12px;">
+    <div class="table-wrap" style="margin-top:12px;">
+    <table>
         <tr>
             <th>Limitation</th>
             <th>Planned Enhancement</th>
@@ -193,6 +197,9 @@
             <td>Regional language emergency detection</td>
         </tr>
     </table>
+    </div>
 </div>
 
 {% endblock %}
+
+
