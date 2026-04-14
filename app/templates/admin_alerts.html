@@ -27,75 +27,85 @@
         Total alerts processed: <strong>{{ total }}</strong>
     </p>
 
-    <div class="table-wrap">
-    <table>
-        <tr>
-            <th>Decision Type</th>
-            <th>Count</th>
-            <th>Share</th>
-        </tr>
+    <!-- FLEX WRAPPER (ONLY LAYOUT CHANGE) -->
+    <div style="display:flex; gap:30px; align-items:stretch; flex-wrap:wrap;">
 
-        <tr>
-            <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
-            <td><strong>{{ stats.IMMEDIATE_ESCALATION }}</strong></td>
-            <td>
-                {% if total > 0 %}
-                    {{ ((stats.IMMEDIATE_ESCALATION / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+        <!-- ORIGINAL TABLE (UNCHANGED) -->
+        <div style="flex:1; min-width:300px;">
+            <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Decision Type</th>
+                    <th>Count</th>
+                    <th>Share</th>
+                </tr>
 
-        <tr>
-            <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
-            <td><strong>{{ stats.CONDITIONAL_ESCALATION }}</strong></td>
-            <td>
-                {% if total > 0 %}
-                    {{ ((stats.CONDITIONAL_ESCALATION / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+                <tr>
+                    <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
+                    <td><strong>{{ stats.IMMEDIATE_ESCALATION }}</strong></td>
+                    <td>
+                        {% if total > 0 %}
+                            {{ ((stats.IMMEDIATE_ESCALATION / total) * 100) | round(1) }}%
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
 
-        <tr>
-            <td><span class="badge medium">REVIEW REQUIRED</span></td>
-            <td><strong>{{ stats.REVIEW_REQUIRED }}</strong></td>
-            <td>
-                {% if total > 0 %}
-                    {{ ((stats.REVIEW_REQUIRED / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+                <tr>
+                    <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
+                    <td><strong>{{ stats.CONDITIONAL_ESCALATION }}</strong></td>
+                    <td>
+                        {% if total > 0 %}
+                            {{ ((stats.CONDITIONAL_ESCALATION / total) * 100) | round(1) }}%
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
 
-        <tr>
-            <td><span class="badge low">LOG &amp; MONITOR</span></td>
-            <td><strong>{{ stats.LOG_AND_MONITOR }}</strong></td>
-            <td>
-                {% if total > 0 %}
-                    {{ ((stats.LOG_AND_MONITOR / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+                <tr>
+                    <td><span class="badge medium">REVIEW REQUIRED</span></td>
+                    <td><strong>{{ stats.REVIEW_REQUIRED }}</strong></td>
+                    <td>
+                        {% if total > 0 %}
+                            {{ ((stats.REVIEW_REQUIRED / total) * 100) | round(1) }}%
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
 
-        <tr>
-            <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
-            <td><strong>{{ stats.SUSPECTED_MISUSE }}</strong></td>
-            <td>
-                {% if total > 0 %}
-                    {{ ((stats.SUSPECTED_MISUSE / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+                <tr>
+                    <td><span class="badge low">LOG &amp; MONITOR</span></td>
+                    <td><strong>{{ stats.LOG_AND_MONITOR }}</strong></td>
+                    <td>
+                        {% if total > 0 %}
+                            {{ ((stats.LOG_AND_MONITOR / total) * 100) | round(1) }}%
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
 
-    </table>
+                <tr>
+                    <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
+                    <td><strong>{{ stats.SUSPECTED_MISUSE }}</strong></td>
+                    <td>
+                        {% if total > 0 %}
+                            {{ ((stats.SUSPECTED_MISUSE / total) * 100) | round(1) }}%
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
+
+            </table>
+            </div>
+        </div>
+
+        <!-- PIE CHART (SAFE DATA ATTRIBUTES) -->
+        <div style="flex:1; min-width:280px; display:flex; align-items:center; justify-content:center;">
+            <canvas id="decisionPieChart"
+                data-immediate="{{ stats.IMMEDIATE_ESCALATION }}"
+                data-conditional="{{ stats.CONDITIONAL_ESCALATION }}"
+                data-review="{{ stats.REVIEW_REQUIRED }}"
+                data-log="{{ stats.LOG_AND_MONITOR }}"
+                data-misuse="{{ stats.SUSPECTED_MISUSE }}"
+                style="max-height:320px; width:100%;">
+            </canvas>
+        </div>
+
     </div>
 
 </div>
@@ -111,7 +121,6 @@
             <strong>Total Alerts:</strong> {{ alerts|length }}
         </p>
 
-        <!-- Search filter -->
         <input type="text"
                id="alertSearch"
                class="search-input"
@@ -156,9 +165,7 @@
             <td>{{ alert.phone }}</td>
             <td>{{ alert.emergency_type | capitalize }}</td>
 
-            <!-- Message preview - truncated for table readability -->
-            <td class="truncate-cell"
-                title="{{ alert.message }}">
+            <td class="truncate-cell" title="{{ alert.message }}">
                 {{ alert.message }}
             </td>
 
@@ -184,15 +191,19 @@
     {% else %}
 
     <div class="info-box">
-        No alerts have been processed yet. Alerts will appear here once reports are submitted.
+        No alerts have been processed yet.
     </div>
 
     {% endif %}
 
 </div>
 
+<!-- ================= SCRIPTS ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    // Live search filter for alerts table
+    // EXISTING SEARCH (UNCHANGED)
     var searchInput = document.getElementById('alertSearch');
     var table = document.getElementById('alertsTable');
 
@@ -202,10 +213,55 @@
             var rows = table.querySelectorAll('tr');
 
             rows.forEach(function (row, index) {
-                if (index === 0) return; // skip header
+                if (index === 0) return;
                 var text = row.textContent.toLowerCase();
                 row.style.display = text.includes(query) ? '' : 'none';
             });
+        });
+    }
+
+    // SAFE PIE CHART (NO JINJA IN JS)
+    const ctx = document.getElementById('decisionPieChart');
+
+    if (ctx) {
+        const chartData = [
+            Number(ctx.dataset.immediate || 0),
+            Number(ctx.dataset.conditional || 0),
+            Number(ctx.dataset.review || 0),
+            Number(ctx.dataset.log || 0),
+            Number(ctx.dataset.misuse || 0)
+        ];
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Immediate Escalation',
+                    'Conditional Escalation',
+                    'Review Required',
+                    'Log & Monitor',
+                    'Suspected Misuse'
+                ],
+                datasets: [{
+                    data: chartData,
+                    backgroundColor: [
+                        '#e74c3c',
+                        '#f39c12',
+                        '#f1c40f',
+                        '#2ecc71',
+                        '#9b59b6'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
         });
     }
 </script>
