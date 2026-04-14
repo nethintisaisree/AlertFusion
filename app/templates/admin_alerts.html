@@ -16,11 +16,11 @@
     <div class="section-heading">Escalation Decision Statistics</div>
 
     {% set total = (
-        stats.IMMEDIATE_ESCALATION +
-        stats.CONDITIONAL_ESCALATION +
-        stats.REVIEW_REQUIRED +
-        stats.LOG_AND_MONITOR +
-        stats.SUSPECTED_MISUSE
+        (stats.IMMEDIATE_ESCALATION | default(0)) +
+        (stats.CONDITIONAL_ESCALATION | default(0)) +
+        (stats.REVIEW_REQUIRED | default(0)) +
+        (stats.LOG_AND_MONITOR | default(0)) +
+        (stats.SUSPECTED_MISUSE | default(0))
     ) %}
 
     <p class="helper-text" style="margin-top:-2px; margin-bottom:12px;">
@@ -37,67 +37,70 @@
 
         <tr>
             <td><span class="badge high">IMMEDIATE ESCALATION</span></td>
-            <td><strong>{{ stats.IMMEDIATE_ESCALATION }}</strong></td>
+            <td><strong>{{ stats.IMMEDIATE_ESCALATION | default(0) }}</strong></td>
             <td>
                 {% if total > 0 %}
-                    {{ ((stats.IMMEDIATE_ESCALATION / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
+                    {{ ((stats.IMMEDIATE_ESCALATION | default(0) / total) * 100) | round(1) }}%
+                {% else %}-{% endif %}
             </td>
         </tr>
 
         <tr>
             <td><span class="badge conditional">CONDITIONAL ESCALATION</span></td>
-            <td><strong>{{ stats.CONDITIONAL_ESCALATION }}</strong></td>
+            <td><strong>{{ stats.CONDITIONAL_ESCALATION | default(0) }}</strong></td>
             <td>
                 {% if total > 0 %}
-                    {{ ((stats.CONDITIONAL_ESCALATION / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
+                    {{ ((stats.CONDITIONAL_ESCALATION | default(0) / total) * 100) | round(1) }}%
+                {% else %}-{% endif %}
             </td>
         </tr>
 
         <tr>
             <td><span class="badge medium">REVIEW REQUIRED</span></td>
-            <td><strong>{{ stats.REVIEW_REQUIRED }}</strong></td>
+            <td><strong>{{ stats.REVIEW_REQUIRED | default(0) }}</strong></td>
             <td>
                 {% if total > 0 %}
-                    {{ ((stats.REVIEW_REQUIRED / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
+                    {{ ((stats.REVIEW_REQUIRED | default(0) / total) * 100) | round(1) }}%
+                {% else %}-{% endif %}
             </td>
         </tr>
 
         <tr>
-            <td><span class="badge low">LOG &amp; MONITOR</span></td>
-            <td><strong>{{ stats.LOG_AND_MONITOR }}</strong></td>
+            <td><span class="badge low">LOG & MONITOR</span></td>
+            <td><strong>{{ stats.LOG_AND_MONITOR | default(0) }}</strong></td>
             <td>
                 {% if total > 0 %}
-                    {{ ((stats.LOG_AND_MONITOR / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
+                    {{ ((stats.LOG_AND_MONITOR | default(0) / total) * 100) | round(1) }}%
+                {% else %}-{% endif %}
             </td>
         </tr>
 
         <tr>
             <td><span class="badge misuse">SUSPECTED MISUSE</span></td>
-            <td><strong>{{ stats.SUSPECTED_MISUSE }}</strong></td>
+            <td><strong>{{ stats.SUSPECTED_MISUSE | default(0) }}</strong></td>
             <td>
                 {% if total > 0 %}
-                    {{ ((stats.SUSPECTED_MISUSE / total) * 100) | round(1) }}%
-                {% else %}
-                    -
-                {% endif %}
+                    {{ ((stats.SUSPECTED_MISUSE | default(0) / total) * 100) | round(1) }}%
+                {% else %}-{% endif %}
             </td>
         </tr>
 
     </table>
     </div>
 
+    <!-- PIE CHART -->
+     <div id="chart-data"
+     data-immediate="{{ stats.IMMEDIATE_ESCALATION | default(0) }}"
+     data-conditional="{{ stats.CONDITIONAL_ESCALATION | default(0) }}"
+     data-review="{{ stats.REVIEW_REQUIRED | default(0) }}"
+     data-log="{{ stats.LOG_AND_MONITOR | default(0) }}"
+     data-misuse="{{ stats.SUSPECTED_MISUSE | default(0) }}">
+    </div>
+    <div style="margin-top: 25px;">
+        <div style="width: 280px; height: 280px;">
+        <canvas id="decisionChart"></canvas>
+    </div>
+</div>
 </div>
 
 <!-- ================= ALERT RECORDS ================= -->
@@ -111,7 +114,6 @@
             <strong>Total Alerts:</strong> {{ alerts|length }}
         </p>
 
-        <!-- Search filter -->
         <input type="text"
                id="alertSearch"
                class="search-input"
@@ -156,9 +158,7 @@
             <td>{{ alert.phone }}</td>
             <td>{{ alert.emergency_type | capitalize }}</td>
 
-            <!-- Message preview - truncated for table readability -->
-            <td class="truncate-cell"
-                title="{{ alert.message }}">
+            <td class="truncate-cell" title="{{ alert.message }}">
                 {{ alert.message }}
             </td>
 
@@ -184,15 +184,65 @@
     {% else %}
 
     <div class="info-box">
-        No alerts have been processed yet. Alerts will appear here once reports are submitted.
+        No alerts have been processed yet.
     </div>
 
     {% endif %}
 
 </div>
 
+<!-- ================= SCRIPTS ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    // Live search filter for alerts table
+document.addEventListener("DOMContentLoaded", function () {
+
+    // SAFE: pass data via HTML instead of raw Jinja in JS
+    const chartValues = document.getElementById("chart-data").dataset;
+
+    const data = [
+        Number(chartValues.immediate),
+        Number(chartValues.conditional),
+        Number(chartValues.review),
+        Number(chartValues.log),
+        Number(chartValues.misuse)
+    ];
+
+    const ctx = document.getElementById('decisionChart');
+
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Immediate Escalation',
+                    'Conditional Escalation',
+                    'Review Required',
+                    'Log & Monitor',
+                    'Suspected Misuse'
+                ],
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        '#ef4444',
+                        '#f59e0b',
+                        '#eab308',
+                        '#22c55e',
+                        '#6b7280'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+    // SEARCH FILTER
     var searchInput = document.getElementById('alertSearch');
     var table = document.getElementById('alertsTable');
 
@@ -202,14 +252,14 @@
             var rows = table.querySelectorAll('tr');
 
             rows.forEach(function (row, index) {
-                if (index === 0) return; // skip header
+                if (index === 0) return;
                 var text = row.textContent.toLowerCase();
                 row.style.display = text.includes(query) ? '' : 'none';
             });
         });
     }
+
+});
 </script>
 
 {% endblock %}
-
-
