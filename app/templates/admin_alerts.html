@@ -116,16 +116,55 @@
 
     <div class="section-heading">Processed Alert Records</div>
 
-    <div class="top-controls">
-        <p style="margin:0;">
-            <strong>Total Alerts:</strong> {{ alerts|length }}
-        </p>
+    <p style="margin:0 0 16px 0;">
+        <strong>Total Alerts:</strong> {{ alerts|length }}
+    </p>
 
-        <input type="text"
-               id="alertSearch"
-               class="search-input"
-               placeholder="Search by name, type or decision...">
-    </div>
+    <form method="GET" action="/admin/alerts" style="margin-bottom:15px;">
+        <div style="display:flex; gap:16px; margin-bottom:0px; flex-wrap:wrap;">
+            <div style="display:flex; flex-direction:column; gap:8px; flex:1 1 300px; min-width:240px;">
+                <label for="alertSearch" style="font-weight:700;">Search</label>
+                <input type="text"
+                       id="alertSearch"
+                       name="search"
+                       value="{{ request.args.get('search', '') }}"
+                       placeholder="Name, phone, or message"
+                       style="height:40px; border-radius:999px; border:1px solid #bcc8d3; padding:0 14px; width:92%;">
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px; flex:1 1 300px; min-width:240px;">
+                <label for="decisionFilter" style="font-weight:700;">Decision</label>
+                <select id="decisionFilter" name="decision" style="height:40px; border-radius:999px; border:1px solid #bcc8d3; padding:0 10px; width:100%;">
+                    {% set selected_decision = request.args.get('decision', '') %}
+                    <option value="" {% if selected_decision == '' %}selected{% endif %}>All Decisions</option>
+                    <option value="IMMEDIATE_ESCALATION" {% if selected_decision == 'IMMEDIATE_ESCALATION' %}selected{% endif %}>Immediate</option>
+                    <option value="CONDITIONAL_ESCALATION" {% if selected_decision == 'CONDITIONAL_ESCALATION' %}selected{% endif %}>Conditional</option>
+                    <option value="REVIEW_REQUIRED" {% if selected_decision == 'REVIEW_REQUIRED' %}selected{% endif %}>Review</option>
+                    <option value="LOG_AND_MONITOR" {% if selected_decision == 'LOG_AND_MONITOR' %}selected{% endif %}>Log</option>
+                    <option value="SUSPECTED_MISUSE" {% if selected_decision == 'SUSPECTED_MISUSE' %}selected{% endif %}>Misuse</option>
+                </select>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px; flex:1 1 300px; min-width:240px;">
+                <label for="typeFilter" style="font-weight:700;">Emergency Type</label>
+                <select id="typeFilter" name="type" style="height:40px; border-radius:999px; border:1px solid #bcc8d3; padding:0 10px; width:100%;">
+                    {% set selected_type = request.args.get('type', '') %}
+                    <option value="" {% if selected_type == '' %}selected{% endif %}>All Types</option>
+                    <option value="fire" {% if selected_type == 'fire' %}selected{% endif %}>Fire</option>
+                    <option value="crime" {% if selected_type == 'crime' %}selected{% endif %}>Crime</option>
+                    <option value="medical" {% if selected_type == 'medical' %}selected{% endif %}>Medical</option>
+                    <option value="accident" {% if selected_type == 'accident' %}selected{% endif %}>Accident</option>
+                    <option value="other" {% if selected_type == 'other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <button type="submit" style="height:40px; border-radius:999px; border:2px solid #12696a; background:#0c7778; color:#fff; font-weight:700; padding:0 18px;">Apply Filters</button>
+            <a href="/admin/alerts" style="height:40px; border-radius:999px; border:1px solid #bcc8d3; background:#fff; color:#24506d; text-decoration:none; padding:0 18px; display:inline-flex; align-items:center;">Reset</a>
+            <a href="/export_csv?search={{ request.args.get('search', '') | urlencode }}&decision={{ request.args.get('decision', '') | urlencode }}&type={{ request.args.get('type', '') | urlencode }}" style="height:40px; border-radius:999px; border:1px solid #bcc8d3; background:#dfe8ee; color:#24506d; text-decoration:none; padding:0 18px; display:inline-flex; align-items:center;">Export CSV</a>
+        </div>
+    </form>
 
     {% if alerts %}
 

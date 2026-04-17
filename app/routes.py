@@ -1,9 +1,11 @@
 # app/routes.py
- 
+
 import os
+import csv
 import logging
+from io import StringIO
 from functools import wraps
-from flask import Blueprint, request, jsonify, render_template, session, redirect, url_for, flash
+from flask import Blueprint, request, jsonify, render_template, session, redirect, url_for, flash, Response
  
 from app.services.pipeline import process_alert
 from app.services.scoring_engine import calculate_ecs
@@ -37,6 +39,32 @@ def login_required(f):
             return redirect(url_for("test_bp.admin_login"))
         return f(*args, **kwargs)
     return decorated_function
+
+
+def _filter_alerts(alerts, search_query="", selected_decision="", selected_type=""):
+    if search_query:
+        alerts = [
+            alert for alert in alerts
+            if search_query in (str(alert.get("user_name", "")).lower())
+            or search_query in (str(alert.get("phone", "")).lower())
+            or search_query in (str(alert.get("message", "")).lower())
+            or search_query in (str(alert.get("emergency_type", "")).lower())
+            or search_query in (str(alert.get("final_decision", "")).lower())
+        ]
+
+    if selected_decision:
+        alerts = [
+            alert for alert in alerts
+            if str(alert.get("final_decision", "")) == selected_decision
+        ]
+
+    if selected_type:
+        alerts = [
+            alert for alert in alerts
+            if str(alert.get("emergency_type", "")).lower() == selected_type
+        ]
+
+    return alerts
  
 # =========================
 # HOME
@@ -274,6 +302,15 @@ def report():
 def admin_alerts():
     alerts = fetch_all_alerts()
     stats  = fetch_decision_stats()
+    search_query = (request.args.get("search", "") or "").strip().lower()
+    selected_decision = (request.args.get("decision", "") or "").strip()
+    selected_type = (request.args.get("type", "") or "").strip().lower()
+    alerts = _filter_alerts(
+        alerts,
+        search_query=search_query,
+        selected_decision=selected_decision,
+        selected_type=selected_type
+    )
 
     for alert in alerts:
         if alert.get("created_at"):
@@ -285,6 +322,55 @@ def admin_alerts():
         "admin_alerts.html",
         alerts=alerts,
         stats=stats
+    )
+
+
+@test_bp.route("/export_csv")
+@login_required
+def export_csv():
+    alerts = fetch_all_alerts()
+    search_query = (request.args.get("search", "") or "").strip().lower()
+    selected_decision = (request.args.get("decision", "") or "").strip()
+    selected_type = (request.args.get("type", "") or "").strip().lower()
+
+    alerts = _filter_alerts(
+        alerts,
+        search_query=search_query,
+        selected_decision=selected_decision,
+        selected_type=selected_type
+    )
+
+    buffer = StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow([
+        "ID", "User", "Phone", "Emergency", "Message", "Priority",
+        "Credibility", "Trust", "Risk", "Decision", "Timestamp"
+    ])
+
+    for alert in alerts:
+        created_at = alert.get("created_at")
+        formatted_time = created_at.strftime("%d %b %Y, %I:%M %p") if created_at else "N/A"
+        writer.writerow([
+            alert.get("alert_id", ""),
+            alert.get("user_name", ""),
+            alert.get("phone", ""),
+            alert.get("emergency_type", ""),
+            alert.get("message", ""),
+            alert.get("priority_score", ""),
+            alert.get("credibility_score", ""),
+            alert.get("trust_score", ""),
+            alert.get("risk_score", ""),
+            alert.get("final_decision", ""),
+            formatted_time
+        ])
+
+    csv_data = buffer.getvalue()
+    buffer.close()
+
+    return Response(
+        csv_data,
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment; filename=alerts_export.csv"}
     )
 
 
