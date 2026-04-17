@@ -24,7 +24,8 @@ CRITICAL_KEYWORDS = {
     "explosion", "dying", "suicide", "stab", "knife",
     "drowning", "choking", "overdose", "poisoning", "kidnapping",
     "robbery", "robber", "burglar", "burglary", "intruder",
-    "thief inside", "still inside", "trapped inside","gas leaking"
+    "thief inside", "still inside", "trapped inside","gas leaking","bomb"
+    "hostage","assault","abuse","domestic violence"
 }
 
 SAFETY_OVERRIDE_KEYWORDS = {
