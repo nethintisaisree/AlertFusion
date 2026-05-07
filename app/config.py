@@ -8,18 +8,6 @@ Intelligent Emergency Alert System
 Loads settings from environment variables.
 Falls back to safe defaults for development.
 
-For production or sharing code:
-  1. Create a .env file in the project root
-  2. Add your actual values there
-  3. .env is listed in .gitignore — never committed to GitHub
-
-Example .env file:
-  SECRET_KEY=your-random-secret-key-here
-  DB_HOST=localhost
-  DB_USER=root
-  DB_PASSWORD=your_db_password
-  DB_NAME=emergency_alert_db
-  DB_PORT=3306
 """
 
 import os
